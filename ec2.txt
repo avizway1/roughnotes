@@ -241,6 +241,117 @@ Install Cloudwatch agent, then you can monitor, free storage space and memory us
 
 
 
+========
+
+[Environment]-[Platform]-[Servicetype]-[clientID]-[SNo]
+
+Env:
+Training : T
+Development : D
+Quality Assurance : Q
+User Acceptance Test/ UAT : U
+Production / prod : P 
+Dissaster Recorvery : DR
+
+Platform : 
+Windows : WN
+Linux : LX
+
+ServiceType:
+Application Server : APP
+DatabaseServer : DBA
+Web Server : WEB
+Directory Services :  DIR
+File Server : FSR
+hadoop Server : HDS
+BackUp Server : BKP
+
+Client : 
+icici : IC
+hdfc : HD
+axis : AX
+
+PLXAPPIC03
+
+P-LX-APP-IC-03
+
+=============
+
+AWS Eventbridge : 
+
+1. Event Driven Process : 
+	Upload an object to s3, Start a lambda function.. 
+	EC2 instance status change, Want to get alert.. 
+2. Scheduled Process : Run tasks on defined intervals/schedules.
+	For every 5 min, i want to trigger a lambda fucntion
+
+{
+  "version": "0",
+  "id": "f5c858ea-a6d2-28b8-1b83-3f529c2b36aa",
+  "detail-type": "EC2 Instance State-change Notification",
+  "source": "aws.ec2",
+  "account": "828477980115",
+  "time": "2025-06-24T02:40:03Z",
+  "region": "ap-south-1",
+  "resources": [
+    "arn:aws:ec2:ap-south-1:828477980115:instance/i-04471d034968885a8"
+  ],
+  "detail": {
+    "instance-id": "i-04471d034968885a8",
+    "state": "stopping"
+  }
+}
+
+
+==========
+
+
+// Input Path
+
+{
+    "time": "$.time",
+    "instance-id": "$.detail.instance-id",
+    "state": "$.detail.state",
+    "region": "$.region"
+}
+
+
+// Input Template
+
+"At <time>, Status of my ec2 instance <instance-id> is changed state to <state> in <region> Act fast"
+
+
+
+
+=========
+
+year : 1970-2199/*	2025-2027	*	2025/2027	
+Day of Week : SUN-SAT (MON,FRI) (MON-FRI) (1-7)
+Month : 1-12 or JAN-DEC
+Day of Month : 1-31
+Hours: 0-23
+Minutes : 0-50
+
+*/5
+
+cron (0 9 1 * ? *)
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
