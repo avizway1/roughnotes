@@ -1,0 +1,258 @@
+EC2 : Elastic Compute Cloud : Launch our Servers.. 
+
+
+Server : Am AWS server : Am sharing the service..??
+Client : You are the client : you are learning from me.??
+
+Server : .?
+
+Go out purchase the "2 x servers" --> Install OS --> Install the developed App --> Delivering (27/7 Up and running)
+
+Cooling
+Space
+Power connectity (UPS)
+Physical security
+
+EC2 : Provide servers based on our load.. (Auto Scaling)
+
+Pay-as-you-go : Pay for the resources you actually used : per hour basis
+Pay-as-you-grow : pay based on the resources you actually used : small : less cost.. High/more server..
+
+=====
+
+Instance = Server = Azure VM = Virtual Machine/VM = box
+
+On-Demand EC2 Instance : Per hour basis, we get charged.. No contract with AWS.. 
+-> For unpredictable workloads or when you want to try diff configs for your app to get clarity on perf.. 
+Charged: Per hour basis
+
+=========
+
+Reserved Instances: for predictable/stable workloads.. 1/3 yrs conbtract with AWS.. 
+-> We get charged for the duration we reserve (1 yr/3yrs)
+--> Good Discount on the pricing
+
+--> Standard RI : We cannot change config during the 1 yr period
+--> Convertable RI : We can change config during the 1 yr period
+
+B2B : Business to Business : App (my org) --> Client (other Org)
+
+---- : Pricing
+
+Full upfront : pay 100% now, no monthly cost ($$$)
+Patrtial upfront : Pay 30-50% now, Pay remaining monthly basis, based on the usage with reduced hourly price.
+No Upfront : No need to pay anything now, pay everything monthly basis.
+
+========
+
+
+AMI : Amazon Machine Image : OS (Preconfigured OS)
+
+
+=======
+
+EC2 : 
+
+Instance Type : t2.micro / t3.micro*
+
+Every month: 750 hrs Windows for t2.micro (1 CPU and 1 GB Memory)
+Every month: 750 hrs Linux for t2.micro (1 CPU and 1 GB Memory)
+
+31x24=744 hours max we have in a month
+1 x t2.micro x 1 day = 24 hrs
+2 x t2.micro x 1 day = 48 hrs
+
+EBS Elastic Block Storage : 30 Gb Free Tier
+
+=======
+
+1. AMI (OS)
+2. Instance Type (HW config)
+3. Storage (HDD/SSD)
+
+=======
+
+Step 1 : Add tags (name, project, cost center, xxxx)
+
+Step 2 : AMI (Amazon machine Image) - OS / template of an OS : Amazon Linux
+
+Choose : Amazon Linux (AWS owned Linux OS, 5 yrs support) / CentOS / Ubuntu
+
+Step 3 : Instance Type
+
+General Purpose : balanced CPU, RAM, Network : t2 / t3 / t4g / m4 / m5
+Compute optimised : Provides HIGH CPU power (Compute intensive tasks/application) : C4, C5, C6
+Memory Optimised : For Memory optimised workloads (R4, R5, R6, x1, z1)
+Storage Optimised : IOPS (Input and Output Operations per second), high IOPS worloads: D2, D3, I3, I4
+GPU optimised : Intensive graphic workloads... f1, p3, p4, g3
+
+m5.xlarge : 4 vCPU.. 16 GiB Memory (**) --> Stable Perf
+c6i.xlarge : 4 vCPU.. 8 GiB Memory
+r5.xlarge  : 4 vCPU.. 32 GiB Memory (**) --> More Memeory power
+r5.2xlarge : 8 vCPU.. 64 GiB Memory
+
+---
+
+Step 4 : Choose a keypair / Create a keyapir
+
+Step 5 : Network Configurations
+
+VPC : Virtual private Cloud : Default VPC only
+
+Security Group : THis acts as Firewall at Instance level. 
+
+OS : 0 - 65535 Ports..
+
+Windows : RDP (Remote Desktop protocol) : Port : 3389
+Linux : SSH (Secure Shell) : Port : 22
+http : hypertext transfer protocol : 80
+https : Secure over http : 443
+Mysql : 3306
+mssql : 1433
+NFS : 2049
+
+
+Source : 
+MyIP : My Home Network i can connect to the instance
+Custom : Multiple Custom Network IPs
+Anywhere : Open to all networks (not recommended at enterprise level) (** Want to deliver your website for entire world, then its okay to choose this option)
+
+---
+
+Step 6 : CHoose Storage : 8GB default option.
+
+
+ssh -i "awar-04.pem" ec2-user@13.233.255.237
+
+ssh -i "awar-04.pem" ec2-user@ec2-13-233-255-237.ap-south-1.compute.amazonaws.com
+
+
+
+
+
+
+==================
+
+Scenario: t3.medium (you ec2 instance) --> t3.large
+
+Plan the Change : 
+==> When it is planned.? : Over Weekend (Pref: Saturday Morning)
+Non-Working Days and Non Business hours
+
+==> Is it client facing server (or) Internal Server. 
+Client Facing : Inform client about this change.
+Internal : Inform internal teams who access this server.
+
+CRQ --> Change Request (Why this change / justification)
+CAB (Change Advisory Board) : Present your change
+Change window : Saturday Mornings 
+
+Does this change any Downtime required.?
+Ans : yes, As we have to stop the instance.
+
+Pre CRQ Tasks : Need to take backup(snapshots), Services must be stopped
+
+Maintenance Window : Apply the change
+
+Post Change, Validation : 
+Is the changed applied succesfully.? yes, Then resume the services.
+perform the basic sanity/functionality check.
+Inform the Support team to monitor it closely for next job runs.
+
+RollBack Plan: If change not implemented succesfully, How can we get our app to stable state.
+
+NOC / production Support Team : Disable and Enable Alerts during the window. 
+Monitors the alerts (Critical/Emergency)
+
+Risk and Impact Analysis : low risk / high risk
+
+==========================
+
+Are we going to perform these changes directly in Production environment.???
+Ans : NO
+
+Is this chnage succesfully implemented and validated in Lower environments.?
+Ans : Yes
+
+2 CAB Calls : Non-prod Call and Prod Call...
+
+SDLC Process : Dev --> QA --> UAT --> PERF --> PRD
+
+
+==============================================================================
+
+EFS : Elastic File System : 
+--> Supports Linux OS
+--> NFS v 4.1 (network File System) 
+--> Port : 2049
+--> This is managed service. 
+--> No PreProvisioning required. Unlimited data.
+
+
+
+#!/bin/bash
+dnf install httpd -y
+systemctl start httpd
+systemctl enable httpd
+
+
+EC2 SG
+VPC CIDR
+EC2 Instance Private IPs
+
+
+
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-0dd311050bacbca05.efs.ap-south-1.amazonaws.com:/ /var/www/html/
+
+
+perm mount.?
+
+get entry from mtab and write it to fstab
+
+=============
+
+userdata : 
+
+#!/bin/bash
+dnf install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo "<h1> THis is a userdata webpage </h1>" >> /var/www/html/index.html
+echo "<h1> This instance is healthy </h1>" >> /var/www/html/status.html
+
+
+
+CloudWatch : Monitoring service.. ec2/s3/rds/network... 
+
+2 Types of Monitoring :
+1. Basic Monitoring : 5 Minute
+2. Detailed Monitoring : 1 Minute : ** COST US
+
+
+RAM / Memory : We cannot monitor Memory of an ec2 instance using default cloudwatch metrics. 
+Install Cloudwatch agent, then you can monitor, free storage space and memory usage.
+
+
+=======
+
+2 Status checks happens on our ec2 instance
+1. System Status check
+2. Instance status check
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

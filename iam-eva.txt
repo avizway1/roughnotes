@@ -1,0 +1,145 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Deny",
+      "Action": "s3:DeleteObject",
+      "Resource": "arn:aws:s3:::my-critical-bucket/*"
+    }
+  ]
+}
+
+
+=====
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": "ec2:*",
+      "Resource": "*"
+    }
+  ]
+}
+
+
+=======
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "ec2:StartInstances",
+      "Resource": "*",
+      "Condition": {
+        "Bool": {
+          "aws:MultiFactorAuthPresent": "true"
+        }
+      }
+    }
+  ]
+}
+
+=========
+
+Allow user to perform any operation on S3 bucket, when he is in Corporate network.!!
+
+
+**
+Public IP : Unique across the globe (org : firewall.. Fixed/Static IP)
+Private IP : Unique but with in the network.
+
+https://whatismyipaddress.com/
+
+124.123.161.27
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*",
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": "124.123.161.200"
+                }
+            }
+        }
+    ]
+}
+
+==========================
+
+Inline Policy : Directly embedded into a single entity (user/group/role)
+
+An IAM can have max of 20 managed policies. 
+A policy size has a limit : max 6144 char per policy.
+
+--- 
+
+you can still add more permissions to IAM user with inline policy.
+
+THese are Not Reusable
+Difficult to track
+
+=========================
+
+How to track an IAM user activities.!
+
+We have an s3 bucket, someone deleted that s3 bucket, youa re asked to investigate it.!!! 
+Ans : CloudTrail (Logs every activity happening on your aws acocunt)
+Enabled Defaultly in all AWS accounts, Retention period : 90 Days.
+-> We can filter the logs based on EventName, Username
+
+
+Incident : Fix the issue. 
+PIR : Post Incident Report, How we can not get into this situation future. 
+RCA : Root Cause Analysis : Why this happened.!!
+
+BAU : business as usaual
+
+=========================
+
+How to track user credentials / last logged in / last pwd reset info.?
+
+Credentials report : We can generate user login info.
+
+IAM Access Analyzer : helps us to identify the resources that shared with other acocunts.
+also, 
+Help us with Unused resources for better security (Cost us)
+
+==========================
+
+Permisisons boundary : Not a commonly used feature..
+We can setup maximum permisisons for an IAM user.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

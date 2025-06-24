@@ -1,0 +1,161 @@
+Sanbox Account / Training : Try out new thingss, we do POC (Proof of Concept)
+Dev Account : Developers do the actual application development. Developers will have more access.
+QA Account : Quality assuatnce will be tested by testers.
+UAT Account / Pre-prod : Similates the Real prod envi. 
+PRD Account : Live application.
+
+Central logging Account : 
+Cental Networking Acocunt :
+Management Account / orgnisation Account : All bills will be managed from this acocunt. (I can add one payment method and i can use for all the acocunts i have in my org)
+
+=================
+
+Support Plan : 
+
+1) Account and Billing Releated Queries : Regardless of your support plan, Anyone can raise incident.
+2) Technical Queries : Depends on your Support Plan 
+
+
+Basic SP : Free
+--> No Technical Support
+--> AWS KBs (knowledge base Articles) - AWS Re:Post
+--> Trusted Advisor : Limited suggestions on AWS resources.
+
+---
+
+Developer SP : 29$/Month : 
+--> Technical Assistance : 12-24 Local business Hours (8AM-8PM).. Email Support / Support Center.. 
+--> Trusted Advisor : Limited suggestions on AWS resources.
+--> 1 User can raise ticket with AWS, Unlimited Tickets.
+
+Case Severity: 
+General Guidance : <24 hrs
+System Impaired : <12 hrs
+
+---
+
+Business SP : 100$/Month
+--> Technical Assistance : 24x7 through phone, email or chat.. Within 1 Hour we will get assistance.
+--> Trusted Advisor : Full checks..
+--> Any User can raise ticket with AWS, Unlimited Tickets.
+
+Case Severity: 
+General Guidance : <24 hrs
+System Impaired : <12 hrs
+Production Systen Impaired : < 4 Hrs
+Production System Down : <1hr
+
+---
+
+Enterprise SP: $15,000/Month
+--> Technical Assistance : 24x7 through phone, email or chat.. Within 15 Min we will get assistance.
+--> Trusted Advisor : Full checks..
+--> Any User can raise ticket with AWS, Unlimited Tickets.
+--> Dedicated TAM (Technical Account Manager)
+--> AWS perform "Annual Operational and Architectural" reviews.
+
+Case Severity: 
+General Guidance : <24 hrs
+System Impaired : <12 hrs
+Production Systen Impaired : < 4 Hrs
+Production System Down : <1hr
+Business Critical System Down : <15 Min
+
+
+P1 -> Application down / huge impact to the business
+P2 -> it has impact on business
+P3 -> Moderate effort
+P4 -> Low priority
+
+
+Ticket / Case / incident : 
+
+
+=====================================
+
+root user : Unrestricted access on AWS account.
+
+Least privilages Mechanism/Principle: Provide access/permissions to the user that really required to perform his job. (No less/ No addl permissions)
+
+S3 : Simple Storage Service : AWS version of Google Drive
+EC2 : Elastic Compute Cloud : Launch/create and manage Servers
+RDS : Relational Database Service : Create and Manage Databases for our applications
+
+
+S3Admin : Administarte S3 Service : root cred..???
+EC2Admin : Administrate EC2 Service : root cred..??
+
+
+IAM User (Identity and Access Management) : We can create users, we can manage user permissions based on their job role.
+
+Policy : A policy is nothing but set of permissions on AWS account.
+
+S3Admin : Attach S3FullAccess policy : When this user logs-in he can access only s3, no other servcies.
+EC2Admin : Attach Ec2FullAccess policy : When this user logs-in he can access only ec2, no other servcies.
+
+Groups : Developer group / DBA group / AWS Admin group / Support group
+
+
+***Enable MFA for your root acocunt.
+
+=======================================
+
+Authentication : Verifying identity using Credentials (username and password)
+Authorization : Defining what resources or actions specific user is allowed to access after authentication.
+
+
+Implicit allow : if a user allocated with a policy i.e; s3fullaccess, the user is allowed to access only s3 service. All other servcies access are denied.
+
+Explicit Deny : Deny overrides allow. If a user allocated with administrator access, and also, allocated with "S3 Deny".. Result : Apart from S3, user is allowed to access all the services. Even if any new service introduced.
+
+Policy : Docuement writtens in JSON. Set of permissions on AWS env.
+
+AWS Managed policies : Based on the AWS servcies we have in market AWS provided these.
+AWS Managed job function policies : Based on stanbdard jobs we have in market. DBA / Nwtwork Admin
+
+Customer Managed Policies : Based on customer/our requirement, we can create/modify/delete these.
+
+
+Policy Components:
+
+Service : S3, EC2, RDS : S3
+Effect : Allow / Deny : Deny
+Actions : S3:PutObject
+Resources : S3Bucket/ EC2 Server / RDS DB : S3 Bucket Name : aviz.co.in
+
+Requirement : I Need an IAM user, who has FullAccess on my AWS Acocunt, 
+But I dont want to allow this user to work on S3 Servcie (as it contains some sensitive info).
+
+
+You have an IAM user, he has multiple policies i.e; S3RwadOnly, S3FullAccess, AdministratorAccess But he also has DENYS3 Policy..!!!  Can he access S3 or not.?? 
+
+Ans : You allow 100 times, but deny 1 time.. Deny will take effect.
+
+
+I need an IAM user, I want this user to access bucket name starts with "a".
+
+Need list permisisons, 
+
+
+an IAM user can have max of 20 policies. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

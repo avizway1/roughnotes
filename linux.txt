@@ -1,0 +1,143 @@
+top
+ps
+ps aux
+sleep 60
+sleep 300 &
+nproc
+
+htop is top output only -- Interactive
+
+kill PID
+kill -9 PID (SIGKILL)
+
+free
+
+====================
+
+ec2-user
+
+useradd		
+
+useradd avinash
+passwd avinash
+id avinash
+usermod -aG wheel avinash
+id avinash
+groups avinash
+
+su avinash
+
+edit the sshd_config file
+
+sudo vim /etc/ssh/sshd_config
+
+passwordauthentication yes
+
+sudo systemctl restart sshd
+
+ssh avinash@<Instance-public-ip>
+
+
+================
+
+Numeric permissions method:
+
+Read - r - 4
+Write - w - 2
+Execute - x - 1
+
+User - u
+Group - g
+Others - o
+
+
+0 - No Permissions
+1 - Only Executable permissions
+2 - Only Write Permisisons
+3 - Only write and execute, but no read permisisons
+4 - Only read permisisons
+5 - Read and execute but no write permissions
+6 - Read and Write permisisons, but no Execute permisisons
+7 - Read, Write and Execute permissions (full)
+
+
+======
+
+<type> <u><g><o> 
+
+rw-r--r--
+
+646
+
+chmod		--> Modify permisisons
+
+chown		--> Change file owner
+chown -R avinash /data
+chgrp		--> change file group
+
+
+*/2 * * * *
+
+
+===========
+
+
+SSD : 4
+HDD : 2
+Magnetic : 1
+
+gp2 / gp3 : General Purpose : 
+
+10 gb = 100 iops... 200 gb = 600 IOPS.. 
+1:3 (1 gb = 3 iops.. min 100 iops)
+
+200 gb = 2000 IOPS..
+
+
+lsblk : shows all volumes (OS using / not using) : use this to identify the volume name.
+df -Th : shows volumes used by OS.. (write a file system / mounting to a directory)
+
+
+volumes location : /dev
+
+newly added volume name : /dev/xvdb
+
+Verify the file system status: 
+
+file -s /dev/xvdb
+
+if output is "data", No file system available.
+
+
+mkfs -t xfs /dev/xvdb			==> Writing xfs to new vol
+
+mkdir datavol
+
+mount /dev/xvdb datavol/
+
+/etc/fstab		--> Perm mount
+/etc/mtab		--> Temp mount
+
+--> grab mount entry from /etc/mtab file 
+
+/dev/xvdb /home/ec2-user/datavol xfs rw,seclabel,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0
+
+--> and write it to /etc/fstab for perm mount
+
+vim /etc/fstab
+
+yum install xfsprogs
+
+xfs_growfs -d /home/ec2-user/datavol/
+
+
+
+
+
+
+
+
+
+
+
+
