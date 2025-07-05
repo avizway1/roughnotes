@@ -61,6 +61,71 @@ http status codes:
 5XX : Server Side
 
 
+==========================
+
+
+Encryption : helps to secure data. Plain text convertes as scrambled text/cypher text for security purpose. It uses KeyMaterial / Encryption keys (Public Key and Private Key)
+
+---
+
+In-Transite Encryption : Whenever data is in flight state/trasfering/transit state, we call it as In-transite encryption. Applying SSL/TLS certificate is AWS responsibility.
+
+---
+
+Server Side Encryption / SSE :
+
+SSE-S3 : Amazon S3 managed keys : S3 generates and manages the key material. 
+Who can decrypt data: Whoever has access to S3, can decrypt and access the data.
+
+--- 
+
+SSE-KMS Key Management Service
+
+SSE-KMS AWS Managed Keys (DMK - Default master key) (aws/s3) : This generates by defautly whenever youa re using the service.. We cannot delete this.. 
+AWS KMS generates and manages the key material.. Whoever has access to S3 platform, they can decrypt.
+
+---
+
+SSE-KMS CMK (Customer Managed keys) : COST-US : User have to generate this key.. Key material Managed by AWS KMS Service.. Along with the Service access, user should have KMS KEY USAGE permissions.. 
+We can Disable/Delete the key.
+
+Step 1 : Chopose "Symmetric"
+Step 2 : Add Name and Tags
+Step 3 : Add Key Administrators
+Step 4 : Add key Usage permissions
+Step 5 : Review and Create
+
+---
+
+SSE-C (Customer provided keys) : COST-US : User have to generate this key.. Key material can be provided by CUSTOMER.. Along with the Service access, user should have KMS KEY USAGE permissions.. 
+We can Disable/Delete the key.
+
+Step 1 : Chopose "Symmetric"
+Step 2 : Add Name and Tags
+Step 3 : Add Key Administrators
+Step 4 : Add key Usage permissions
+Step 5 : Review and Create
+
+Step 6 : Download the Key wrapper
+Step 7 : Wrap your keys, Zip it and upload it to KMS. 
+
+---
+
+Client Side Encryption / CSE: Purely customer's responsibility. Customer can encrypt his data in his local environment and can upload/manage data into s3 platform.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
