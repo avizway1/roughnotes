@@ -337,25 +337,100 @@ Minutes : 0-50
 cron (0 9 1 * ? *)
 	
 
+====================
+
+#!/bin/bash
+dnf install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo "<h1> THis is my WebServer-1 From 1A </h1>" >> /var/www/html/index.html
+echo "<h1> This instance is healthy </h1>" >> /var/www/html/status.html
+
+
+---
+
+ALB Supported Algorithms: 
+
+Round Robin : distribute equally acroos resources.
+
+Least outstanding Requests : Send requests to the targhet based on existing load/requests count. 
+
+Weighted Random : Distribute traffic randomly across healthy resources based on weight we configure. 
+** Anomaly Detection : identifies issues with targets and route.
+
+------
+
+NLB uses "Flow Hash Algorithm"
+
+tested "IP Info" SourceIP, Destination IO add, Protocol, port number, pocket sizes,.. By using all this info, it generates a hash and route traffic.
+
+
+-----
+
+Stickiness : 
+
+
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-06067365ec863f5d4.efs.ap-south-1.amazonaws.com:/ /var/www/html/
+
+
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.31.33.254:/ /var/www/html/
+
+
+172.31.33.254:/ /var/www/html nfs4 rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,noresvport,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=172.31.46.34,local_lock=none,addr=172.31.33.254 0 0
+
+
+========
+
+On-Demand : Unpredictable.. Pay-as-you-go.. Per Hour.. 
+Reserved / RI : Stable/predictable.. $ Discount.. 1 yrs / 3 yrs.. 
+
+Spot Instances : Bidding.. : Temporary.. If its interrupted as no issues.. 
+c5.xlarge = 1$/hr.. ==> 0.40$/Hr.. From Date - to date.. Spot pricing History.. 
+0.25$ USD / hr.. These all configs we can offer.. 
+
+
+Spot : Launch an ec2 instance used it for 2 hrs 50 Minutes.. 
+--> Price Increased, AWS Terminated this instance : 2 Hrs..
+--> Price Not Increased, You Terminated this instance : 2 Hrs 50 minutes..
+
+
+=======================
+
+S3 : Simple Storage Servcie : flat files : REST API (http / https).. Object Based Storage.. 
+EBS : Block based storage : Limited/attached to one instance : Operating System, OS Boot, Databases..
+EFS : NFS : Shared file system, Web service content, Container volumes..
+
+S3 : AWS Version of Google Drive with advanced options.. 
+
+Bucket : Folder/Directory with unique name across the globe.. 
 
 
 
+https://avinash-reddy.s3.ap-south-1.amazonaws.com/shortly.png
+
+
+https://bucketname.s3.regioncode.amazonaws.com/object-name
+
+https://s3.amazonaws.com/bucketname/objectname
+
+
+Storage classes
+Versioning
+Life Cycle management Rule
+Replication 
+Encryption
+Static Website hosting **
 
 
 
+S3 Free Tier : 5 GB Standard Storage.. 
+2000 PUT Object (Uploads)
+20,000 GET Object (Downloads)
 
 
 
-
-
-
-
-
-
-
-
-
-
+Task : Create an S3 bucket, Add some data into s3 bucket.. Launch an ec2 instance, Add s3role to the instance and get data from s3 to ec2 instance (copy/sync)
+**Dont make s3 bucket public for this task
 
 
 

@@ -1,0 +1,69 @@
+S3 : Simple Storage service
+
+Object based storage : Flat files : Objects : S3
+
+https://s3.regioncode.amazonaws.com/bucketname/objectname
+
+https://bucket-name.s3.region-code.amazonaws.com/objectname
+
+https://bucket-name.s3.amazonaws.com/objectname
+
+------
+
+Stores in S3-Standard Storage Class
+
+S3 Standard : Frequently accessed Data (Default storage class) : Access without delay : phone : (3 copies across diff AZs in selected region)
+
+S3 Standard - IA (Infrequently Accessed) : Less freq acessed data : Access without delay : laptop (3 copies across diff AZs in selected region) : 99.9%
+
+S3 OneZone - IAM : Less freq acessed data : Access without delay : laptop (Data stores in only 1 AZ across multiple devices) : 99.5%
+
+S3 Glacier Instant Retrieval : Long-lived archive data accessed once a quarter with instant retrieval in milliseconds : 
+
+S3 Glacier Flexible Archieval : For less freq accessed data : We need to initialise the restoration to access the data : Restoration takes min-hours.. 
+
+S3 Glacier Deep Archieval : For less freq accessed data : We need to initialise the restoration to access the data : Restoration takes atleast 12+ hours.. 
+
+S3 Intelligent Tier : if you are not sure about data access patterns.. $$$..
+
+---
+
+Glacier has 3 Retrival/restore options : 
+Bulk : 5-12 hrs
+Standard : 3-5 Hrs
+Expedited : 1-5 Min (Ob size not exceed 250 MB)
+
+---
+Versioning : 
+
+AWS maintains multiple copies of data.
+
+--> If any file deleted, we can get it back by deleting delete marker.
+--> If any file overwridden, we can get it to valid state by deleting the wrong data version.
+
+Permanently delete : No option to get it back.
+delete : There is an option to get it back.
+
+Delete the delete marker to get uyour object back to s3 bucket (set version : show)
+----
+
+LCR / Life Cycle management Rule : 
+
+
+
+======
+
+http status codes:
+
+2XX : OK/Success
+3XX : Redirection
+4XX : Client Side 
+5XX : Server Side
+
+
+
+
+
+
+
+
