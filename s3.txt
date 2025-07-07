@@ -114,13 +114,36 @@ Step 7 : Wrap your keys, Zip it and upload it to KMS.
 Client Side Encryption / CSE: Purely customer's responsibility. Customer can encrypt his data in his local environment and can upload/manage data into s3 platform.
 
 
+=============
+
+Bucket Policies : We can generate and apply polocies at bucket level to control access or to limit to specific operations.
+
+-> JSON format
+
+Bucket ARN (Amazon Resource Name) : arn:aws:s3:::avinash-reddy
+Principal :  IAM User ARN : arn:aws:iam::<account-id>:user/username
+Effect : allow / deny
+Action to effect (allow/deny): PuObject / GeteObject / DeleteObject
+**Conditions : IP Conditions / Account
+ 
+
+Bucket Level Operations : Deleting bucket, enabling versioning, adding acl, adding bucket policy.
+	--> Bucket ARN : arn:aws:s3:::avinash-reddy
+
+Object Level operations : delete object, upload object, putobject
+	--> arn:aws:s3:::avinash-reddy/*
 
 
+==========
 
 
-
-
-
+S3 Storage Classes
+S3 versioning
+S3 Life Cycle management Rule
+S3 Replications
+S3 Encryption
+S3 Bucket Policy
+S3 Static Web Hosting / S3 Events
 
 
 
