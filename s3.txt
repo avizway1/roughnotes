@@ -133,9 +133,38 @@ Bucket Level Operations : Deleting bucket, enabling versioning, adding acl, addi
 Object Level operations : delete object, upload object, putobject
 	--> arn:aws:s3:::avinash-reddy/*
 
+==========
+
+S3 performance:
+
+2,500 : PUTObject per prefix
+5,500 : GETObject per prefix
+
+--> use prefixes/Folders to store the data for quick search mechanism.
+--> Maintain uniqueness for your Object names.
 
 ==========
 
+S3 Consistency Model : 
+
+Strong Read after Write Consistency : When a new object created, we can start reading it without any delay.
+Strong Consistency for Overwrite PUT and DELETE Operations : 
+	--> You upload something/owerwriting, you can access it without delay.
+	--> You deleted an object, When any request comes, it will return "404"
+
+Eventual Consistency for List Operation: Newly added/deleted objects may not list immediately under list results.
+
+==========
+
+MultiPart Upload : Instead of uploading a very big file, we can make it small chunks/parts, and upload it to s3 bucket.
+
+aws s3 cp largefile.mp4 s3://bucket-name/ --part-size 10MB
+
+==========
+
+AWS Snow Family : Without using internet, we can perform data transfer to AWS using physical devices.
+
+==========
 
 S3 Storage Classes
 S3 versioning
@@ -145,10 +174,22 @@ S3 Encryption
 S3 Bucket Policy
 S3 Static Web Hosting / S3 Events
 
+==========
 
 
+AWS Direct Connect : Dedicated network connection between our OnPremise network to AWS environment..
 
 
+==========
+
+
+Public Cloud : Open for everyone.. AWS, Azure, GCP.. 
+
+Private Cloud : Designed and Delivered for Only One organisation.. It may present in CLient location / Service provider location.. 
+
+Hybrid Cloud : Combination of Multiple Cloud Platforms.. (pub+Pri) (pub+pub).. : Internet.. Site-to-Site VPN Connection.. AWS Direct Connect..
+
+Community Cloud : Group of org, build the data center and uses the data center.. 
 
 
 
