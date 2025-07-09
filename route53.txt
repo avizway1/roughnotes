@@ -1,0 +1,118 @@
+DNS : Domain Naming System/Service
+
+Domain Name --> IP
+IP --> Domain Name
+
+
+1. browser Initiates the request to access the domain/URL
+
+2. Checks browser cache
+
+3. Check OS Cache 
+
+4. Query Local DNS Server (8.8.8.8) (ipconfig / ncpa.cpl / ip addr / ifconfic)
+
+5. Root DNS Server (TLD : Top Level Domain)
+
+6. TLD DNS Server 
+
+7. Authoritative DNS server : 
+
+8. Resolver Returns Ip to Browser
+
+9. Browser Connects to WebServer
+
+10. Web Server Responds
+
+=======================
+
+How to identify an IP address of a Website
+
+nslookup : Name Server lookup
+
+tracert : windows
+traceroute : Linux
+
+ping : 
+dig : 
+
+=========
+
+DNS Port : 53
+
+Route53 : AWS DNS Servcie
+
+Public IP.. Load balancer DNS.. S3 Static Website.. : Remembering these is not easy for humans.. : Purchase a Domain Name and map it.. 
+
+---
+
+You should purchase Domain Name..?
+
+Domain Reselleres : Godaddy, namecheap, enom, freenom, bigrock, Route53.. 
+
+---
+
+AWS : IaaS (Infrastructure as a Service) : We can configure anything from OS level.. 
+
+Godaddy: PaaS (Platform as a Servcice) : Provide a platform to host out website, by uploading our own website data / godaddy preavailable data.. 
+
+SaaS (Software as a Service) : One click hosting.. 
+
+---
+
+Domain Purchased at : GoDaddy
+Server Launched and Configured : AWS
+
+ns-540.awsdns-03.net
+ns-1104.awsdns-10.org
+ns-322.awsdns-40.com
+ns-1921.awsdns-48.co.uk
+
+---
+
+COST US.. NO FREE TIER ELIGIBILITY..
+
+1. Domain name Cost (1 year)
+2. HostedZone cost (0.50$/Month)
+
+---
+
+A : Address Record : Domain Name <--> IP and Vice Versa.. 
+AAAA : Address Record supports IPv6 : 
+
+CNAME : Cananical name : Another Name.. fb.com / facebook.com
+TXT : Simple text Record to verify ownerships..
+MX Record : Mail Server Records.. 
+
+Alias Name : You see this record only in AWS.. We can easily map suitable resources to our domain name with this alias record.. 
+
+---
+
+#!/bin/bash
+dnf install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>This is my MUMBAI hosted WebServer</h1>" >> /var/www/html/index.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
