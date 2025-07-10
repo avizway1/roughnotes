@@ -1,0 +1,126 @@
+
+Public IP Address : Its global unique and assigned to a device for communication over the internet.
+--> ISP (internet Service provider : ACT/Bean/Jio/Airtel). Cost Us.
+
+
+Private IP Address : Its used within internal networks, Its unique but with in the network. 
+--> We can choose a range and use within network withpout paying anything to anyone. Only Internal communication is possible.
+
+===
+
+IPv4 : 32 bit address space, Supports 4.3 billion unique IPs. (2^32)
+
+IPv6 : 128 bit address space, Supports 340 unidecilion unique IPs. (2^128)
+
+===
+
+How to check IP Address of your laptop / Network.??
+
+Below commands shows private IPs of your device.
+
+windows : ipconfig (or) ipconfig /all. 
+Linux : ifconfig (or) ip addr (or) ip		: 192.168.0.134
+
+To view public IP of your network, try below websites.
+
+https://whatismyipaddress.com/				: 49.206.53.124
+https://iplocation.io/
+
+===
+
+IPv4 Address has 5 Classes..
+
+Class A : 0 - 126 	: 0.0.0.0 - 126.255.255.255 : 
+Class B : 128 - 191 : 128.0.0.0 - 191.255.255.255
+Class C : 192 - 223 : 192.0.0.0 - 223.255.255.255
+
+Class D : 224 - 239 : 224.0.0.0 - 239.255.255.255 (Multicasting)
+Class E : 240 - 255 : 240.0.0.0 - 255.255.255.255 (Reserved for R&D)
+
+127.0.0.0 : Is reserved for loopback testing purpose.
+
+IPv4 is 32 bit : 8 bit + 8 bit + 8 bit + 8 bit = 32 bit 
+
+====
+
+Every Class (A-C) has a private IP address range to use for internal communications for free.. 
+
+Class A : 10.0.0.0 - 10.255.255.255
+Class B : 172.16.0.0 - 172.31.255.255
+Class C : 192.168.0.0 - 192.168.255.255
+
+====
+
+Network : group of interconnected devices. All these devices can communicate each other. (your home internet via router)
+
+Host : a device with in a network (printer, laptop, phone, tv, alexa)
+
+====
+
+Class A : N.H.H.H
+Class B : N.N.H.H
+Class C : N.N.N.H
+
+
+Class A : 0 - 126 	: 0.0.0.0 - 126.255.255.255 : 127 networks, 16 million devices for each network
+Class B : 128 - 191 : 128.0.0.0 - 191.255.255.255 : 16,000 networks, 65,000 devices for each network
+Class C : 192 - 223 : 192.0.0.0 - 223.255.255.255 : 2 million networks.. 256 hosts for each network
+
+
+How many networks and hosts we can create using class A .? Ans : 127 network.. Each network will have 16 million hosts..
+1.(0-255).(0-255).(0-255)
+
+
+HOw many networks and hosts we can create using class C .? Ans :  2 million networks.. Each network supports 256 hosts...
+
+192.168.0.0/1/2/3/4...255
+N.N.N.H
+
+How many hosts/devices we can add to this network.? Ans : 256
+
+
+====
+
+DHCP : Dynamic host Configuration protocol : It automatically allocates IP address to the devices added/joined to the network. 
+
+====
+
+AWS VPC supports Min /28 network and Max /16 network.??
+
+/32 = 32 - 32 = 0 = 2^0 = 1
+/31 = 32 - 31 = 1 = 2^1 = 2
+/30 = 32 - 30 = 2 = 2^2 = 4
+/29 = 32 - 29 = 3 = 2^3 = 8
+
+/28 = 32 - 28 = 4 = 2^4 = 16
+
+/24 = 32 - 24 = 8 = 2^8 = 256
+
+/16 = 32 - 16 = 16 = 2^16 = 65536
+
+/0 = 32 - 0 = 32 = 2^32 = 4.3 billion ips
+
+=====
+
+In general networks, 2 IPs will be reserved.. (First IP and Last IP)
+First IP : Represent network (Network ID)
+Last IP : Represent Broadcasting (Broadcasting IP)
+
+Along with Network ID and Broadcasting ID, AWS Reserves 3 more IPs.. 
+
+1 --> AWS DNS Server
+2 --> VPC Router
+3 --> Future usage
+
+====
+
+/24 ==> 256 IPs ==> 256 - 5 = 251 Usable IPs
+/16 ==> 65536 IPs ==> 65536 - 5 = 65531 Usable IPs
+/28 ==> 16 IPs ==> 16 - 5 = 11 Usable IPs
+
+
+
+
+
+
+
