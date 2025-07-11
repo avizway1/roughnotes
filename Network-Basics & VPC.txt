@@ -93,7 +93,7 @@ AWS VPC supports Min /28 network and Max /16 network.??
 /29 = 32 - 29 = 3 = 2^3 = 8
 
 /28 = 32 - 28 = 4 = 2^4 = 16
-
+/25 = 32 - 25 = 7 = 2^7 = 128
 /24 = 32 - 24 = 8 = 2^8 = 256
 
 /16 = 32 - 16 = 16 = 2^16 = 65536
@@ -101,6 +101,8 @@ AWS VPC supports Min /28 network and Max /16 network.??
 /0 = 32 - 0 = 32 = 2^32 = 4.3 billion ips
 
 =====
+
+==> AWS Reserves 5 IPs..
 
 In general networks, 2 IPs will be reserved.. (First IP and Last IP)
 First IP : Represent network (Network ID)
@@ -117,6 +119,91 @@ Along with Network ID and Broadcasting ID, AWS Reserves 3 more IPs..
 /24 ==> 256 IPs ==> 256 - 5 = 251 Usable IPs
 /16 ==> 65536 IPs ==> 65536 - 5 = 65531 Usable IPs
 /28 ==> 16 IPs ==> 16 - 5 = 11 Usable IPs
+
+
+Domain Registrers: Godaddy / bigRock.. avinash.com --> ICANN (Domain uniqueness) / IANA : RootZone DB : .com .in .xyz 
+
+Who see public IP.?? ISP : have to reserve a pool of IP..
+
+DHCP.. : IP COnflict issue
+
+
+===========================================
+
+VPC : Virtual Private Cloud : Region specific : an isolated virtual network. It allow us to launch ec2 instance and DBs... \
+
+
+Default VPC : All subnets are public Subnets..!!
+
+
+Public Subnet : Internet facing subnet.. Resources running here can access internet and can be accesable over internet.. 
+
+Private Subnet : Isolated without direct internet access.. cannot accesable over the internet.. Secured compared to Public Subnet.. 
+(Private subnet with internet - NAT gateway)
+(Private subnet without internet)
+
+
+CIDR Range : Classless Inter-Domain Routing : IP range for our VPC.. 
+
+1 AZ = 1 Subnet..
+
+Pre-Checks and Design considerations : 
+
+1. How big VPC we need..? ans :  Instances   : 192.168.0.0/22 - 1024 IPs
+2. How many subnets we need to create.? 6 Subnets..
+	Public ap-south-1a & ap-south-1b - web  (192.168.0.0/25	 & 192.168.0.128/25	)
+	Private ap-south-1a & ap-south-1b - APP (192.168.1.0/25	& 192.168.1.128/25	)
+	Private ap-south-1a & ap-south-1b - DB (192.168.2.0/25	& 192.168.2.128/25	)
+	
+3. Any plans for future explansions.? 
+	We need to reserve some IPs for future usage (192.168.3.0/25 & 192.168.3.128/25	)
+
+
+Public : ELB, NAT Gateway, jump Server/Bastian Host (2 AZs )
+Private for APP: Application Servers (2 AZs)
+Private for DB: Database (2 AZs)
+..??? (2 AZs)
+
+
+============
+
+
+Step 1 : Create a VPC : CIDR - 192.168.0.0/22
+	name; my-custom-vpc
+
+Step 2 : Create Subnets 
+
+	cvpc-web-pub-sn-1a 	192.168.0.0/25
+	cvpc-web-pub-sn-1b	192.168.0.128/25
+	
+	cvpc-app-pvt-sn-1a	192.168.1.0/25
+	cvpc-app-pvt-sn-1b	192.168.1.128/25
+	
+	cvpc-db-pvt-sn-1a	192.168.2.0/25
+	cvpc-db-pvt-sn-1b	192.168.2.128/25
+	
+
+Step 3 : Create internet gateway and associate it with Custom VPC.
+
+Step 4 : Create Route Tables with in the VPC.
+
+Public Route : Add route via Internet gateway. associate "public subnets"
+Private Route : "DO NOT" Add route via Internet gateway. Just associate "private subnets"
+
+IGW makes a subnet as Public / private. if any Routetable has entry via IGW, All subnets associated to that RT are public subnets.
+
+Step 5 (Optional) : Enable Auto-assign public IP for public subnets.  (choose public subnet --> edit subnet settings --> enable ipv4 public ip)
+
+Step 6 (Optional - Recommended) - Enable DNS hostnames at VPC level. (VPC --> edit VPC Settings --> enable dns host names)
+
+=====
+
+Jump Server / Bastian Host : A Dedicated ec2 instance runs in custom VPC's public subnet, used to connecting to Private subnet ec2 instances. 
+
+
+
+
+
 
 
 
