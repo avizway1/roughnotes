@@ -201,6 +201,110 @@ Step 6 (Optional - Recommended) - Enable DNS hostnames at VPC level. (VPC --> ed
 Jump Server / Bastian Host : A Dedicated ec2 instance runs in custom VPC's public subnet, used to connecting to Private subnet ec2 instances. 
 
 
+=====
+
+/23 : 512 IPs VPC : 
+
+Subnets : 8 Subnets : 
+
+2 public (2 zones) - internet facing workload - web
+2 private (2 zones) - APP Workdload
+2 private (2 zones) - DB workload
+2 Private (2 zone) - ** i.e; Redshift / Lambda
+
+=====
+
+How to connect to Private subnet instance securely.?
+
+Ans : We connect to "Jump server / Bastian Host" running in Public SUbnet, Then we can use Private subnet instance Private IP address with keypair or username/password.
+
+=====
+
+NAT Gateway : Provide internet to private subnet resources wihtout compromising on secutiry part.
+NAT should run in CVPC Public Subnet.
+Need to generate an EIP. **Make sure to release EIP after NAT Delation.
+
+
+SG are Stateless.
+Stateless : Security Group : We need to takes care about only inbound rules. Whetever you open at inbound, automatically allowed at outbound.
+
+NACLs are stateful.
+Stateful : NACLS : We need to open traffic at inbound and outbound level also. 
+
+
+==========
+
+EC2 Instance is in CustomVPC Private Subnet (Without NAT Gateway & Without Internet Gateway).. 
+but, i want to access S3 from private SUbnet instance.!!! 
+Ans: Create an IAM Role and attach it to ec2 instance. 
+
+Create an Endpoint and add an entry in CustomVPC Private Route Table. SO that, private subnet ec2 instance can access s3 service. 
+
+Gateway : Managed By AWS, Interface will be created and managed by AWS. **FREE
+interface Endpoint : Managed by Customer, Interface will be created in our OWN AWS account. Traffic flow happens over that Interface only. **COST US 
+
+=========
+
+VPC Peering : Designed to enable communication acros multiple VPCs. 
+These VPC can be present in Same Region / other region... Same account / other account.. 
+**Source VPC and Target VPC sould not have same CIDR Range. (IP range should not conflict)
+
+========
+
+Transit gateway : **NO FREE TIER ELIGIBILITY : Alternative option to VPC-Peering. Enterprise level resource.
+
+Step 1 : Create a transit gateway in Central account. (Central-networking-Account)
+
+Step 2 : Share it with multiple AWS accounts (Member Accounts) using RAM (Resource Access Manager) Service.
+
+Step 3 : In CentralNW Account (Where TGW present), Create a TGW Attachment and choose the VPC.
+
+Step 4 : In Member Account (aviz8), Create a transit gateway attachment. 
+
+Step 5 : In CentralNW Account, Under Attachments screen, Find the shared Attachment and "Accept" the attachment.
+
+Step 6 : Now, Edit Route Tables in "CentralNW Account" and "Member Account", Add routes accordingly ( CentralNW --> add a route with member VPC CIDR and Vice versa)
+
+
+========
+
+Site-to-Site VPN Connection: **NO FREE TIER ELIGIBILITY
+
+Step 1 : Create a Customer Private gateway (Enter your Org Firewall's Public IP)
+Step 2 : Create a Virtual private gateway (AWS END)
+Step 3 : Create a Site 2 site vpn using CPGW & VPGW
+Step 4 : Download the configuration depends on the firewall device your org is using, and share it with your network team who manages the fw. they need to apply these changes in FW device. Tunnel will be up. 
+
+
+=======
+
+NAT Gateway : Designed to provide interent to Private SUbnet Instances. 
+
+IPv6 : Engress Only Internet gateway : Designed to provide interent to IPv6 Private SUbnet Instances. 
+
+======
+
+Can i add one more CIDR range to my VPC, if existing one is full.?
+Ans: Yes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
