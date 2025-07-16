@@ -1,0 +1,70 @@
+RDS : Relational Database Service.. : Data stores in table format.. 
+
+Why Need a DB for our App..?? Ans : TO store the data i.e; transactional/structured data/Unstructured/binary 
+(user email, password, dob, phone number)
+LMS : DB ..?? Email, password and batch.. 
+Reliance Mart / Wallmart : Ph num.. 
+
+Physical hardware + Install OS + Install DB software + OS/DB patching + Backup + HA.. 
+EC2 : Install DB s/w + OS/DB patching + Backup + HA.. 
+RDS : No OS+ Db Install + OS Patching + One CLick enable Backup + One click enable HA..  (DbaaS - Database as  a Service)
+
+RDS has 7 Relational DB Engines.. 
+
+--> Amazon Aurora (Mysql & postgresql)
+--> Mysql  : mysql workbench
+--> MSSql (Microsft SQL) : ssms (sql server management studio)
+--> MariaDB (workbench / dbeaver)
+--> PostgreSQL (pgadmin / dbeaver)
+--> Oracle DB (toad/ oet)
+--> IBM DB2 (own ep tool)
+
+==========================
+
+192.168.2.128/25
+cvpc-db-pvt-sn-1b
+
+Pre-Requisite : 
+1. Create a DB Subnet group. Make sure you add only "Private SUbnets" created for DB workloads.
+
+We cannot login to OS level to adjust the DB configuration settings.. So, We have "Parameter group" option on DB, We can adjust the settings.
+**Some changes required DB restart.
+
+
+COnnect to mysql using command line.
+
+dnf install mariadb105 -y
+
+
+myfirstdb.cjmu48ickkmj.ap-south-1.rds.amazonaws.com  --> rds.learnaws.today
+dbadmin
+Avinash12345
+
+
+CREATE DATABASE schooldb;	--> Create a DB with name school db
+SHOW DATABASES;			--> List all DBs
+USE database_name;		--> Switches/sets defaultdb
+SHOW TABLES;			--> show tqables from db
+
+CREATE TABLE students (id INT, name VARCHAR(50));	--> create a table with name staudents and store name
+
+DESCRIBE table_name;	--> Shows table structure i.e; column name, data types..
+
+INSERT INTO students VALUES (1 , 'Avinash');
+INSERT INTO students VALUES (2 , 'Anudeep');
+
+SELECT * FROM students;		--> List all student entries
+
+DELETE FROM students WHERE id = 2;	--> Delete the entry where student id is 2.
+
+
+
+
+
+
+
+
+
+
+
+
