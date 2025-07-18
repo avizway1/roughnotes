@@ -58,6 +58,65 @@ SELECT * FROM students;		--> List all student entries
 DELETE FROM students WHERE id = 2;	--> Delete the entry where student id is 2.
 
 
+==========
+
+Gmail : 
+
+Sign-up : Email id, firstname, last name, password, contact info.. : Write (Primary Endpoint Name)
+log-in : Email id and Password : Read (Reader endpoint name)
+Forgot Password : Enter new password and reconfirm the new password : Write (Primary Endpoint Name)
+
+
+==========
+
+Multi-AZ : Another copy of our DB runs in another AZ.
+
+==========
+
+Read Replica : 
+
+RDS Has a cache solution : Service Name: Elasticache..
+Elasticache has 2 open source cacheing engines.. 
+1. MemcacheD
+2. Redis : **
+
+Redis help Video : https://youtu.be/wp1QnBW2kIM?si=XkGyMyAvxBt1DG00
+Redis with IAm Auth : https://youtu.be/2-bGqxqRND8?si=WNgASRtiDrgQ3thB
+
+==========
+
+DynamoDB :  NoSQL DB service.. Serverless.. No Cluster provisioning required.. 
+We need to choose Read Capacity and Write capacity units.. 
+On-Demand (Scaled based on load) and provisioned (we can choose how many req)
+**DynamoDB provides maximum of "single digit milliseconds latency at any scale" of data.. 
+
+Cache : DynamoDB Accelebrator (DAX)
+
+--
+
+Complete the same: https://youtu.be/ePpnQhuQ6U0?si=THoHGvDD9oG0DxXd
+Git Repo: https://github.com/avizway1/tictactoe-with-DynamoDB
+
+
+=========
+
+OLTP : Online Transactional processes : RDS 
+OLAP : Online Analytical processes : Redshift
+
+Redshift : AWS Datawarehopusing solution.. 
+
+--> Leader Node : Designed/Responsible to run queries on the data stored on Compute nodes..
+--> Compute Node : Stores actual Data..
+
+
+
+
+
+
+
+
+
+
 
 
 
