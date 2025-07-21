@@ -1,0 +1,39 @@
+CloudTrail : logging service..
+Enabled by defaultly.. 
+Stores last 90 days logs..
+Can we store for unlimited days: yes, Create a Trail
+
+1. Management events : Capture management operations performed on your AWS resources.
+2. Data events : Log the resource operations performed on or within a resource.
+3. Insights events : Identify unusual activity, errors, or user behavior in your account.
+4. Network activity events : Network activity events provide information about resource operations performed on a resource within a virtual private cloud endpoint.
+
+** Can i monitor events happening inside an ec2 instance.?? Ans : NO.. 
+Install Cloudwatch Agent inside an ec2 instance.. 
+
+We can integrate AWS logs with 3rd party tools also.. DataDog, Dynatrace, Site24x7, middleware.io... 
+
+======
+
+AWS Config : Monitor the resources continuously.. Evaluate the configurations and provides complinat and non complinat resources based on the rules we configure.. 
+
+Configuration Recording : Captures the resources changes (Integrated with Cloutrail)
+Compliance Evaluation : We can create rule and Config evaluate the resources.. 
+
+NO FREE TIER ELIGIBILITY..
+
+
+=====
+
+AWS Trsuted Advisor 
+
+=====
+
+DDoS : Distributed Denial of Service (DDoS) : 
+
+AWS Shield : To protect our resources from DDoS Attacks.. : EWnabled by defaultly in all accounts.. Basic protection..
+
+AWS Shield Advanced : Enabled this for attional support, mitigation, preventions from AWS dedicated team..
+
+=====
+
