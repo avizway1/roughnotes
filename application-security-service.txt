@@ -37,3 +37,52 @@ AWS Shield Advanced : Enabled this for attional support, mitigation, preventions
 
 =====
 
+CloudFront : CDN.. 
+
+ACM : SSL/TLS.. 
+
+====
+
+Delivering website using https protocol : 
+
+Script for http to https redirection
+https://raw.githubusercontent.com/avizway/redirection/master/httptohttps
+
+
+===
+
+Secrets Manager : 
+
+application.properties... 
+
+Parameter Store : 
+
+
+---
+
+SQS : Simple Queue Service : Send and receive mesages.. (poll based message)
+
+Standard Q : Try to delivery on priority (best effort)
+FIFO Q : First In First out : Maintains the priority.. 
+
+Max msg retention period : 14 Days
+Undelivered msgs we can send it to another Queue : DLQ (Dead letter Queue)
+Max msg size is 256 KB (1 chunk = 64 KB)
+
+1 chunk = 1 request
+
+
+=====
+
+SNS : Simple notification Servcice : Push Based message.. 
+
+--> Push Notifications : Delivers/push from the mobile application.. 
+
+
+
+
+
+
+
+
+
