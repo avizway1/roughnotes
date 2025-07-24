@@ -79,6 +79,45 @@ SNS : Simple notification Servcice : Push Based message..
 --> Push Notifications : Delivers/push from the mobile application.. 
 
 
+=============
+
+Physical Server --> Install OS --> Patching OS --> Install App --> Deploy code --> Deliver
+
+Physical Server --> Hypervisor --> Install OS --> patching --> Install App --> Deploy code --> Deliver
+
+EC2 --> Server (AWS manages) --> Installing OS (AWS Manages) --> Patching OS --> Installing App --> Deploy Code --> Deliver
+
+Lambda Server (AWS manages - No View) --> Installing OS (AWS Manages - no view ) --> Patching OS (AWS Manages - No view ) --> Installing App (AWS Manages - No view) --> Deploy Code (Customer) --> Deliver
+
+
+EC2 pricing : Per Hour basis.. /Sec basis.. regardless of load.. 
+Lambda Pricing : Code run duration.. memory consumption.. (10 gb memeory --> 512 MB used to run code)
+
+
+Serverless : No Servers for us to manage.. AWS manages the servers.. 
+Note that the console code editor supports only Node.js, Python, and Ruby.
+
+--> .net
+--> java
+--> python
+--> go
+--> nodejs
+--> ruby
+
+--> Lambda function can run max for a "15 minutes" only.
+
+Canary lambda : periodically opens the given website url and looks for the expected string. 
+
+lmabda --> Store all logs in CloudWatch logs group.
+
+
+REPORT RequestId: 254d9ae5-312d-41e1-abcc-821050fa7870	
+
+
+Can we run a lmbada function within a VPC.?
+Ans : yes
+
+
 
 
 
