@@ -118,6 +118,36 @@ Can we run a lmbada function within a VPC.?
 Ans : yes
 
 
+================
+
+Training / Sandbox
+Dev
+SIT
+SQA
+UAT (pre-prod)
+PRD
+Central network
+Central logging
+Management Account
+
+OU : Organisational Unit
+SCP : Service Control Policy
+
+
+---
+
+AWS Organisations and AWS Identity Center works together. 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
