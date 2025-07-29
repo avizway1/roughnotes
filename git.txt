@@ -1,0 +1,59 @@
+GIT  : VCS (Distributed version control System)
+
+Developer --> Laptop 
+
+1970 - SCCM : Source Code control system : 1 file
+		Revision control System / RCM : x files, 1 directory
+		CVS (Cuncurrent version System) : x files, x directory, 1 user
+
+2000 - SVN : Subversions				: x files, x directories, x users
+2004 - GIT : Global information tracker 
+
+
+Advantages : 
+--> Distributed in Nature : 
+--> Branching and Merging 
+--> Performacne 
+
+
+----
+
+
+dnf install git -y 		# LinuxOS
+
+git-scm.com/downalods 		--> download the git and install, then open ternal
+
+
+git config --global user.name "avizway"
+git config --global user.email "avizway@gmail.com"
+git config --list
+git config --global --edit
+git config --global core.editor "vim"
+
+
+
+Repository / Repo : A repo is a storage location where our project files stores. (in our laptop / remote machine / git repo)
+
+clone : making a local copy on your laptop, of a remote repo. If repo is public, No authentication required.
+
+Push : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
