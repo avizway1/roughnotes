@@ -30,13 +30,22 @@ git config --list
 git config --global --edit
 git config --global core.editor "vim"
 
+git init		--> Initialise a local repo
+
+git add .		
+git commit -m "commit message"
 
 
 Repository / Repo : A repo is a storage location where our project files stores. (in our laptop / remote machine / git repo)
 
 clone : making a local copy on your laptop, of a remote repo. If repo is public, No authentication required.
 
-Push : 
+Push : Sending your commited changes from your local repo to a remote repo. Sending your local changes to remote repo.
+
+pull : Your local repo will be updated with latest code from the remote repo. (fetch the chnages only and updates the local code)
+
+
+Create a Githib account.. 
 
 
 
