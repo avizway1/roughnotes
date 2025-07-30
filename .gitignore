@@ -1,0 +1,6 @@
+#ignore MACOSfile
+.DS_Store
+
+#ignore windows thums file
+Thumbs.db
+
