@@ -1,6 +1,6 @@
 THis is a sample file
 
 THis is my second line
-
+this is my 4th line
 
 This is my 3rd line
