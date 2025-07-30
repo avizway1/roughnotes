@@ -68,7 +68,18 @@ git remote add origin git@github.com:avizway1/roughnotes.git
 git push -u origin master
 
 
+===
 
+git status
+git log
+git log --oneline
+git log --oneline --author="username"
+git show "commit-id"
+git diff commit-id1..commitid2
+
+
+git config --global diff.tool vscode
+git config --global difftool.prompt false
 
 
 
