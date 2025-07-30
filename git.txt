@@ -47,6 +47,33 @@ pull : Your local repo will be updated with latest code from the remote repo. (f
 
 Create a Githib account.. 
 
+=========================
+
+
+cd ~
+ls -a
+cd .ssh
+
+ssh-keygen -t ed25519 -C "email@gmail.com"
+
+cat id_ed25519.pub		--> Copy the content and create a new ssh key in github account settings and paste it.
+
+ssh -T git@github.com	--> Run this command to verify the connectivity.
+
+Now onwords, use ssh method to clone the repo. 
+
+===
+
+git remote add origin git@github.com:avizway1/roughnotes.git
+git push -u origin master
+
+
+
+
+
+
+
+
 
 
 
