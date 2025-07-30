@@ -4,3 +4,10 @@
 #ignore windows thums file
 Thumbs.db
 
+#Ignore jar files
+*.jar
+
+#Ignore any backups name starting with abc
+[abc]*.bkp
+
+
