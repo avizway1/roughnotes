@@ -81,6 +81,58 @@ git diff commit-id1..commitid2
 git config --global diff.tool vscode
 git config --global difftool.prompt false
 
+====
+
+
+echo "# awar04" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:avizway1/awar04.git
+git push -u origin main
+
+---
+
+You can see branch only after the first commit.
+
+--
+
+Swiggy : Food Delivery
+
+
+FD --> main --> Code --> FD -->  FD & IM
+		|				   |
+		|--> Instamart --> |
+
+
+Main : 3 Files --> Switched to IM --> 
+
+
+
+Instamart : grocery
+DineOut : Eat out
+Scenes : events
+
+---
+
+
+git branch instamart 		--> Create a Branch 
+git checkout instamart 		--> Switch to instamart branch
+
+git checkout -b instamart	--> create a branch and checkout to the new branch
+
+main (7 Files) --> dineout (3 files) 
+
+
+
+Main (7 files) --> dineout 3 files
+
+main <-- dineout
+
+
+===
+
 
 
 
