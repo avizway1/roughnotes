@@ -116,7 +116,6 @@ Scenes : events
 
 ---
 
-
 git branch instamart 		--> Create a Branch 
 git checkout instamart 		--> Switch to instamart branch
 
@@ -134,7 +133,30 @@ main <-- dineout
 ===
 
 
+stash : you can store your chnages in stash without commiting it. 
 
+How to test it :
+
+echo "test content" >> code.txt
+git add . && git commit -m "added info in coee.txt"
+
+--
+
+vim code.txt 		(unfinished work)
+
+--> git stash
+
+---
+
+git stash apply 		--> Apply stash changes
+
+--
+
+git stash list			--> shows the stashed list
+git stash show -p 		--> shows the content
+git stash pop			--> apply the stash & remove the stash
+
+---
 
 
 
