@@ -158,9 +158,25 @@ git stash pop			--> apply the stash & remove the stash
 
 ---
 
+Create a file in repo..  add some content
+
+Dev1 : laptop : 
+--> Clone the repo in your laptop, create a branch and switch to it, then edit the file
+--> commit the chnages 
+(Dont merge to main branch)
+
+--> once Dev2 part completed, proceed with below steps
+
+--> Switch to main branch, Pull the code from the remote repo
+--> Now, Try to merge the code from the beranch you created. You will get a conflict.
+
+---> Now, Edit the file, keep the only imp data and push it to the repo.
+
+Dev2 : ec2 instance : 
+--> CLone the repo, Edit the file, Push to the remote repo..
 
 
-
+---
 
 
 

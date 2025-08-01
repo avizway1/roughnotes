@@ -1,0 +1,52 @@
+Lunch = application
+lunch box = docker container
+
+You can have your lunch box in classroom, mess, play ground, home.. 
+
+evrything i.e; app: code, tools, settings, dependencies... : you can run it in your laptop, your friends laptop, cloud..
+
+---
+
+
+
+dnf install docker -y
+systemctl start docker
+systemctl enable docker
+docker info
+
+docker images				--> List the docker images we have in instance/laptop
+
+docker run image-name/id	--> Runs the docker container, but in interactive way.
+
+docker run -d image-name/id	--> Runs the docker container in detached mode.
+
+docker ps					--> List the running containers
+
+docker ps -a				--> List the running and stopped containers
+
+docker rm container-id		--> This will remove the contianer
+
+docker stop container-id	--> This comamnd will stop the container
+
+docker start container-id	--> This comamnd will start the existing container
+
+docker kill container-id	--> This comamnd will stop the container by sending kill signal.
+
+docker run app-name		--> if image not available locally, it will pull the image from docker hub and runs the container. 
+
+docker run -d -p <hostport>:<container-port> image-name:tag-name
+
+docker run -d -p 8080:80 nginx:latest
+
+docker exec -it container-id /bin/bash		--> You can use this command to connect to the container os.
+
+
+
+
+
+
+
+
+
+
+
