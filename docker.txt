@@ -39,10 +39,193 @@ docker run -d -p <hostport>:<container-port> image-name:tag-name
 docker run -d -p 8080:80 nginx:latest
 
 docker exec -it container-id /bin/bash		--> You can use this command to connect to the container os.
+docker exec -it container-id /bin/sh
 
 
+docker run -d -p 80:80 nginx:latest
+docker run -d -p 8080:80 nginx:latest
+
+docker container prune		--> Remove all stopped cotnainers
+
+docker run -dit -p 80:80 nginx:latest
+
+docker run -dit -p 80:80 --name my-webserver nginx:latest		--> Container creates with custom defined name
 
 
+docker inspect <container-id>
+
+
+---
+
+docker network ls					--> List the networks we have. 
+
+NETWORK ID     NAME      DRIVER    SCOPE
+f4442d918362   bridge    bridge    local
+189c97d94a70   host      host      local
+c1f2b41e3ed2   none      null      local
+
+Bridge Mode : Docker defaultly creates an internal network. It will have its own IP address range. By performing the port mapping, you can deliver to outside world using instance IP Address. 
+
+Host Mode : Container shared the host machine's network. 
+
+None : Container without netwotk. 
+
+
+---
+
+
+docker network create mynetwork
+
+docker run -dit --name web1 --network mynetwork alpine
+
+docker run -dit --name web2 --network mynetwork alpine
+
+docker exec -it web1 sh
+ping web2
+
+
+docker inspect 6e443f5c1b8e --> 172.18.0.3
+docker inspect e73349d5bb87 --> 172.18.0.2
+
+---
+
+docker run -d --network host nginx		--> This creates a container with host network mode.
+
+---
+
+docker run -it --network none alpine /bin/sh	--> This creates a cotnainer and we connects to it, but no network. 
+
+
+docker run -dit --network none --name test1 alpine
+
+====================================================================================
+
+Dockerfile Preparation:
+
+
+FROM --> Define Base Image to use. 
+
+FROM nginx:latest
+FROM ubuntu:20.06
+
+---
+
+RUN --> Execute the commands in seperate layer on top of base Image. 
+
+RUN dnf install telnet -y
+RUN apt-get update && apt-get install -y nginx
+
+---
+
+WORKDIR --> Sets the default working directory
+
+WORKDIR /app
+WORKDIR /home/ec2-user/
+
+---
+
+COPY --> Copy the files/directories from the host to the image. 
+
+COPY /home/ec2-user/myweb/* /app/
+COPY . . 
+
+---
+
+ADD --> Similar to Copy command, but supports archieve extractions (.zip / .tar.gz)
+
+ADD myzipfile.tar.gz /app/
+
+---
+
+CMD --> provides default arguments for the containers execution. This will be overridden, if we pass any arguments when running the container using "docker run".
+
+CMD ["python", "app.py"]
+
+--
+
+ENTRYPOINT --> Defines a command that always runs, even if we pass any arguments when running the container using "docker run"
+
+ENTRYPOINT ["python", "app.py"]
+
+---
+
+ENV --> Sets environment varibales
+
+ENV APP_ENV=dev
+ENV APP_ENV=prd
+
+---
+
+EXPOSE --> Container listens on defined port numnber.
+
+EXPOSE 80
+
+---
+
+VOLUME --> Create a mopunt point and marks it as shared volume with container.
+
+VOLUME /home/ec2-user/myweb
+
+---
+
+USER --> sets the user to use when we are running this image.
+
+USER ec2-user
+USER appuser
+USER 1001
+
+---
+
+LABEL --> We can add metadata to the image
+
+LABEL owner="avinash@avinash.com" version="1.0"
+
+---
+
+SHELL 
+HEALTHCHECK
+ARG
+STOPSIGNAL
+
+---
+
+#Using nginx alpine image
+FROM nginx:alpine
+# Set the working directory
+WORKDIR /usr/share/nginx/html
+# Remove default nginx static files
+RUN rm -rf .
+# Copy static files from the local directory to the nginx html directory
+# COPY /home/ec2-user/myweb/* /usr/share/nginx/html
+COPY . .
+# Expose port 80 to the outside world
+EXPOSE 80
+#Start nginx server
+CMD ["nginx", "-g", "daemon off;"]
+#Add owner label
+LABEL owner="avinash"
+
+---
+
+docker build .
+
+docker build -t mynginx:v1 .
+
+---
+
+1. Generate an app.js file, and prepare a Dockerfile to run this app.js file. Use Node base image, copy the app.js to contianer and run it.
+2. Preapre a Dockerfile
+3. build the dockerfile
+4. Run the docker image
+
+--
+
+1. Generate an app.py file, and prepare a Dockerfile to run this app.py file. Use a lightweight base image, copy the app.py to contianer and run it.
+2. Preapre a Dockerfile
+3. build the dockerfile
+4. Run the docker image
+
+---
 
 
 
