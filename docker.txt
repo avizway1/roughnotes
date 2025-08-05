@@ -227,6 +227,44 @@ docker build -t mynginx:v1 .
 
 ---
 
+docker login
+
+docker tag awar04-calapp:latest avizway/awar04-calapp:v1
+
+docker push avizway/awar04-calapp:v1
+
+docker pull avizway/awar04-calapp
+
+---
+
+
+docker rm -f $(docker ps -aq)		--> Remove all Containers (Running and Stopped)
+docker rm -f $(docker ps -q)		--> Remove all Containers Stopped containers
+
+
+We can mount a local directory as a volume to the container. 
+
+
+docker run -d --name mylocal-mount -p 80:80 -v /home/ec2-user/cal-data/:/usr/share/nginx/html:ro,z nginx-local:latest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

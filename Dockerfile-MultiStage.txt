@@ -1,0 +1,9 @@
+#Builder Stage
+FROM node:18 AS builder
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+#Stage-1
+FROM nginx:alpine
+COPY --from=builder /app/build /usr/share/nginx/html
