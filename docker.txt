@@ -247,9 +247,67 @@ We can mount a local directory as a volume to the container.
 
 docker run -d --name mylocal-mount -p 80:80 -v /home/ec2-user/cal-data/:/usr/share/nginx/html:ro,z nginx-local:latest
 
+---
+
+** docker logs <container-id>		--> View logs from a running / stopped container
+docker stats						--> Live CPU, Memory and I/O usage.
+docker top <container-id>			--> Shows the running processes inside a container
+docker events						--> shows realtime events from docker daemon
 
 
+Limit Resources to a Container:
 
+docker inspect <container-id>		--> All the configuration related information of the container.
+
+docker inspect --format='{{.HostConfig.Memory}}' mycalapp
+
+docker run -d -p 80:80 --memory=256m --cpus=1 --name mycalapp <image-name>
+
+---
+
+docker rename <old-name> <new-name>		--> Rename a container
+
+docker pause <container-name/id>		--> Will pause all the processes at container level
+docker unpause <container-name/id>		--> Will un-pause all the processes at container level
+
+docker cp <localpath> <containerpath>
+
+docker cp ./file1.txt <container>:/tmp	--> Copy a host file to a container / vice versa
+
+
+docker save -o myimage.tar <image-name>		--> THis will create a zipped file of the given image (You can copy this/ SCP this to another machine in your network)
+
+docker load -i myimage.tar					--> THis will load image from the zip file
+
+docker history <image-name>				--> Shows history of Image layers
+	
+
+docker build --no-cache -t <name:tag> .		--> Builds the image, without using any cached layers.
+
+---
+
+
+Elastic Container Registry : Fully-managed Docker container registry : Share and deploy container software, publicly or privately.
+
+---
+
+Steps : 
+1. Login to ECR 
+(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 123121312.dkr.ecr.ap-south-1.amazonaws.com)
+
+2. Build the image if you have a Dockerfile (** Skip this step if you already have an image to push)
+docker build -t awar04-calapp .
+
+
+3. Add a tag to push it to the ECR service  (Image name should resemble the ECR URI)
+
+docker tag awar04-calapp:latest 123121312.dkr.ecr.ap-south-1.amazonaws.com/awar04-calapp:latest
+
+--> docker tag local-image-name:tag remote-repo-uri/imagename:tag
+
+docker tag awar04-calapp:latest 828477980115.dkr.ecr.ap-south-1.amazonaws.com/awar04-calapp:latest
+
+docker push 828477980115.dkr.ecr.ap-south-1.amazonaws.com/awar04-calapp:latest
 
 
 
