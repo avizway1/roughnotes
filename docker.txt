@@ -309,10 +309,24 @@ docker tag awar04-calapp:latest 828477980115.dkr.ecr.ap-south-1.amazonaws.com/aw
 
 docker push 828477980115.dkr.ecr.ap-south-1.amazonaws.com/awar04-calapp:latest
 
+---
 
 
+I want to run 2 docker containers. 
+
+1st DB should start.. once it is up and running, then only DB-GUI Tool container should start.
+
+---
 
 
+Image : Build : Running --> App --> Down
+
+--
+
+ECS
+EKS
+
+---
 
 
 
