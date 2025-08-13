@@ -323,12 +323,53 @@ Image : Build : Running --> App --> Down
 
 --
 
-ECS
+ECS : Elastic COntainer Service : AWS own Containers orchestrator..
+
+
 EKS
 
 ---
 
+Docker = Container (Run a Docker Image to get a container)
+ECS = Task (Run a Docker image to get a task (task=container))
+EKS = Pod (Run a Docker image to get a pod (pod=container))
 
+---
+
+ECR : Registry service to store the images.
+
+ECS: 
+
+--> Task Definition : Contains all the required settings to run a task. (Image, port, resources, logs)
+--> Task : Create a task using the task definition. 
+--> service :
+
+
+EC2 launch Type : We need to provision the cluster of EC2 Instances. 
+--> Tasks runs with in that ec2 instances. 
+--> We are responsible for Scaling, Patching and monitoring the ec2 instances.
+
+Fargate Launch Type : We dont manage the servers. Its serverless architecture. 
+--> AWS handles the Scaling, Patching and monitoring the ec2 instances that runs in backend.
+
+
+ECS Anywhere : We can run the workload on our own hardware, Use ECS for orchestaration purpose.
+--> We have to take care about the HW availability, OS Install, OS patching.. 
+--> AWS ECS help us to run, scale the tasks.
+
+--
+
+ECR : Image in Repo
+
+ECS : 
+--> create a Cluster : Choosed "fargate"
+--> create a task Definition : Selected settings i.e; deployment type (fargate), CPU, Memory, Image, port number and logs configuration..
+--> Create a Task : Use a task definition, Choose a VPC, Subnet, SG and Enable Puboic IP. Test the output.
+
+---
+
+Service : We can choose Desired count, if any task failed, it automatically provisions a new task. Always, make sure desired count and actual count are same.
+We can choose deployment strategies "Rolling updates" and "blue/green" deployment mothods.
 
 
 
