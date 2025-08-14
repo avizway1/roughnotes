@@ -372,7 +372,77 @@ Service : We can choose Desired count, if any task failed, it automatically prov
 We can choose deployment strategies "Rolling updates" and "blue/green" deployment mothods.
 
 
+============
 
+Container is stopping suddenly..!!!
+1. Verify logs (docker logs <container-name/id>)
+2. Verify memory usage (OOM (out of memory) Kills) --> Run "docker inspect <container-name/id>" 
+	OOMkilled: true --> Kill the container if no memory
+3. docker stats <container-name/id>	
+
+---
+
+After restarting your container (mysql), you dont see any data. How you troubleshoot / fix this issue.?
+
+1. If you are running a container without volume configuration, data stores temp. make sure to create and attach a volume.
+2. Mount a local path to container. 
+
+---
+
+Your docker build is taking 15 min to build the dependencies, then image is ready. What changes/strategeies you apply to fix this issue.?
+How you speedup the build process.
+
+1. Use chaching to speedup the process
+2. Use light weight images
+3. Use multistage build mechanism.
+
+--
+
+what are the steps involved in preparing the docker file and pushing it to repo.
+
+After writing the docker file
+--> Build it with tags
+--> Test it locally (run it)
+--> Authenticate to Repo Service (Docker hub / ECR)
+--> Add tags
+--> Push image
+
+--> Pull the image and use it.
+
+---
+
+You want inspect something inside a container. What is the process. 
+How can you run commands to identify the issues at container level. 
+
+We can connect to the container..
+docker exec -it <container-id> /bin/bash
+
+---
+
+Container 1 is not able to conenct or communicate with another container. How can you fix the issue.!!
+
+verify network modes.
+Verify firewall settings/blocks.
+
+--
+
+
+ResourceInitializationError: unable to pull secrets or registry auth: The task cannot pull registry auth from Amazon ECR: There is a connection issue between the task and Amazon ECR. Check your task network configuration. operation error ECR: GetAuthorizationToken, exceeded maximum number of attempts, 3, https response error StatusCode: 0, RequestID: , request send failed, Post "https://api.ecr.ap-south-1.amazonaws.com/": dial tcp 13.234.8.23:443: i/o timeout
+
+
+To fix the above issue..
+
+We have 2 options
+
+1. Create a NAT Gateway and provide internet to private subnets (where ECS tasks running), then task can connect to ecr and pull the images.
+
+2. Create VPC endpoints  (NO INTERNET)
+	--> ecr.api : Allow ecs to call ecr api (to get image info)
+	--> ecr.dkr : Enable Docker to pull image from ECR
+	--> Cloudwatch EP : To store logs, tqask needs cloudwatch endpoint also.
+	--> S3 : As ECR stores image layers in s3 temp.
+
+---
 
 
 
