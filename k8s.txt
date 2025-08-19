@@ -1,0 +1,117 @@
+---
+
+Kitchen Stove / Cooking equipments --> Container Runtime : Docker Engine / CRI-O / ContainerD
+
+Container Image / Docker Image : Entire app containerise and made as an Image..
+
+Container Orchestration : Kitchen Manager : Amazon ECS, K8s, EKS, Docker Swarm, Apache Mesos..
+
+Container Registry : Cookbook : Docker Hub, ECR, Azure Container Registry..
+
+--
+
+Kubernetes / K8s : 
+
+Control plane (Brain of K8s): 
+
+API-Server / Kube-apiserver : Entry / Front door of Kubernetes.. All API requests from users and tools handles by this api-server.
+
+Controller Manager /kube-controller-manager : Ensure the desired state of the cluster (Maintains replicas, Replaces failed pods, Node health management)
+
+Scheduler (kube-scheduler) : Decides where to run the new pod, Based on resource availability.. 
+
+etcd (key-value store) : It stores all cluster data (Configurations, deployments, state).. 
+
+CCM / Cloud Controller Manager : Integrates K8s with cloud providers (AWS, Azure, GCP).. ELB, Storage, Networks.. 
+
+
+Worker Nodes (Hands of K8s) : EC2 / Fargate / Our own Server.. 
+
+Kubelet : Runs on every worker node we have.. enables/responsible to establish communication with API server.. Ensures the node runs the assigned container.. 
+
+Container Runtime : Runs containers on the Nodes. 
+
+Kube-Proxy : Manages the networking and ensures pods can communicate each other (pod to pod / node to node)..
+
+Pods : The smallest unit in K8s.. A pod contains one or more containers.. 
+
+====
+
+K8s = Container = pod = ECS Task
+
+Pod contains Container.. 
+
+---
+
+Container : Lightweight, standalone and executable unit of software that contains everything needs to run our applicaiton.
+Code, runtime, system libraries, dependencies... 
+
+POD : A pod is smallest and simplest deployable unit in K8s. It can contains one or more containers.
+
+Node : Node is nothing but an ec2 instance or a server, where K8s workload runs.. 
+
+
+
+---
+
+Pod :
+
+Replica Set : 
+
+Deployment : 
+
+Service : 
+
+
+
+---
+
+Control Plane :
+api-server : Frontend for K8s..
+etcd : Contains or stores cluster metadata in Key and value.. 
+kube-controller-manager : Maintans desired cluster state..
+kube-scheduler : Desides where pod needs to run..
+
+Worker Node : 
+kubelet : communicates with api-server, ensure pods properly running on the nodes.
+container runtime : runs the containers.. docker, cri-o, containerd
+kube proxy : Manages the communication (Internal or external)
+pod : Smallest deployable unit in K8s.. It contains one or more containers.. 
+
+Sidecar container : helper contianers for main containers.. 
+
+
+---
+
+Pod : Contains our application container..
+
+ReplicaSet : Ensures specified number of identitical pod replicas are running always. 
+
+--> Pod Available
+--> Self healing
+--> Manual Scaling
+
+** Does not support rolling updates. We need to use Deployment..
+
+Deployment : Deployment maintains the ReplicaSets and it allow "Rolling Updates".
+
+--
+
+Service : Service is an abstractio that defines a logical set of podss. 
+Sometimes Pods lifetime is very short.. Depending on pods IP to communicate may lead to communication failure.. So, We can logically group all the pods, that serves same purpose/content, then we can use the service name..
+
+
+--> ClusterIP : 
+--> NodePort : 
+--> LoadBalancer : 
+
+
+
+
+
+
+
+
+
+
+

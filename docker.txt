@@ -442,15 +442,3 @@ We have 2 options
 	--> Cloudwatch EP : To store logs, tqask needs cloudwatch endpoint also.
 	--> S3 : As ECR stores image layers in s3 temp.
 
----
-
-
-
-
-
-
-
-
-
-
-
