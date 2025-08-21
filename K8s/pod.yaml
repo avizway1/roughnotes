@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: awar04-pod
+spec:
+  containers:
+  - name: awar04-container
+    image: 828477980115.dkr.ecr.ap-south-1.amazonaws.com/awar04-calapp:latest
+    ports:
+    - containerPort: 80

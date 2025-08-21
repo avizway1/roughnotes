@@ -106,6 +106,91 @@ Sometimes Pods lifetime is very short.. Depending on pods IP to communicate may 
 --> LoadBalancer : 
 
 
+---
+
+1. Managed Control plane : AWS manages the Control plane components (API Server, etcd, Scheduler, CM..), AWS takes care about HA/FT.
+
+--> Easily integrate with other AWS services.. VPC, IAM, Cloudwatch, LoadBalancer, s3... 
+
+--> AWS takes care about complete "Control Plane"
+
+--> AWS EKS Data Plane has 4 Options.
+
+--> EC2 - Self managed node group : "WE" will have full control.. (Scaling, os patching..)
+	--> We need to use Custom AMIs while launching these instances.
+	
+--> EC2 - Managed Node group : "AWS" provisions and manages the nodes/instances.
+	--> AWS takes care about the updatees, sclaing, patching..
+	--> AWS uses "bottlerocket" as default ami
+	--> All we need to do is "choose right sized instance".
+	
+--> Fargate (Serverless)
+	--> No nodes to manage, No node group concept.
+	--> Directly we can run pods.
+
+--> AWS EKS Auto Mode
+	--> AWS takes care about the updatees, sclaing, patching..
+	--> We get high configuration instances at very low cost.
+
+---
+
+
+You should have 2 components.. 
+
+1. AWS CLI Installed and configured
+2. eksctl
+3. kubectl
+	
+
+eksctl create cluster --name=ekswithavinash --version 1.33 --region ap-south-1 --nodegroup-name ng-default --node-type t3.small --nodes 2 --managed --node-ami-family=AmazonLinux2023
+
+---
+
+OIDC : IAM OpenID Connect, This allows AWS IAM to authenticate with K8s service accounts and IAM Permissions and roles.
+
+aws eks describe-cluster --name ekswithavinash --query "cluster.identity.oidc.issuer"
+
+If above command retuned empty, We need to create an OIDC provider.
+
+
+'''
+eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash --approve
+'''
+
+
+eksctl get cluster			--> List the eks clusters
+
+
+kubectl 
+ 			
+
+
+eksctl delete cluster --name ekswithavinash
+
+---
+
+kubectl get all 		--> All K8s components present in default namespace
+
+kubectl get all -A		--> List everything, including K8s default namespaces (K8s system pods)
+
+kubectl get pods
+kubectl get replicasets		kubectl get rs
+kubectl get services		kubectl get svc
+kubectl get namespaces		kubectl get ns
+
+
+kubectl apply -f pod.yaml --dry-run=client
+kubectl apply -f pod.yaml
+kubectl get pods
+
+
+kubectl describe pods awar04-pod
+
+kubectl delete pod rs-call-app-s4kqt
+kubectl delete pod/rs-call-app-s4kqt
+
+
+
 
 
 
