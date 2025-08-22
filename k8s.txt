@@ -190,11 +190,39 @@ kubectl delete pod rs-call-app-s4kqt
 kubectl delete pod/rs-call-app-s4kqt
 
 
+--------
+
+K8s Deployment Strategies :
 
 
+Rolling Update : This method gradually replaces old pods with new pods. As we have addl pods also to deliver our applicatiom, we dont see any downtimes.
+Most of the day-to-day deployments prefer this.
 
+MaxSurge : Extra Pods allowed during the update
+MaxUnavailable : How many can be down
 
+---
 
+Recreate : All existing pods will be terminated, then new pods starts running. We will get a very short downtime. Service delivering pods count goes to 0, then it will start sending traffic to new pods.
+
+---
+
+Blue/Green Deployment : Blue (Current Environment) and green (new Env). 
+
+---
+
+Canary Release : Send a small percentage of real traffic to the newer version.. (1-5%).. If everything is good, Then increase the % to 25%, 50%, 100%.
+--> Old and New environments works side-by-side. 
+
+---
+
+A/B Deployment : Route some of the users to one version of application.. another set of users to another set of application.. New UI experiments.. 
+
+---
+
+Shadow Deployment : We can duplicate the traffic without any user impact. 
+
+---
 
 
 
