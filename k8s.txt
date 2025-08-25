@@ -225,6 +225,53 @@ Shadow Deployment : We can duplicate the traffic without any user impact.
 ---
 
 
+NameSpace / ns : Logical isolation for the resources. 
+
+
+Multiple teams planning to use same cluster..?? 
+
+Dev-Namesapce : Dev worklods
+uat-namespace : UAT Workloads
+
+Multi Tenancy : Differenciate workload based on Teams/Environments. app to app seperation..
+Isolated Environment..
+Resource Quotas : We can limit a namespace to have specific CPU and Memory limit.
+RBAC (Role Based Access Control) : used to restrict access to users. (user1 --> Dev-ns, )
+
+
+Default Namespaces in K8s:
+
+Default : Default ns for all resources when no ns is specified. 
+Kube-System : K8s system components.. (CoreDNS, kube-proxy, Moniroting..).. **Do not delete these resources..
+Kube-Public : Publicly readable namespace, generally used for cluster-wide information..
+Kube-node-lease : Manages node heartbeat to track node availability.
+aws-observability : Stores AWS observability components.. Avaibale only with EKS.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
