@@ -247,14 +247,60 @@ Kube-Public : Publicly readable namespace, generally used for cluster-wide infor
 Kube-node-lease : Manages node heartbeat to track node availability.
 aws-observability : Stores AWS observability components.. Avaibale only with EKS.
 
+---
 
+Pod : Smallest deployable unit..  It contains one or more contianers..
+ReplicaSet : Identical pods with Desired count.. 
+Deployment : pod + rs .. Supports Rolling updates.. 
 
+Service : Gives single point of contact to pods.. To expose pods to outside world, we need service..
+	--> ClusterIP : Internal / Within the cluster
+	--> NodePort : We can deliver to outside world, uses a preconfigured port range (30000 - 32767)
+	--> LoadBalancer : Cloud load balancer.. AWS: Classic Load Balancer.. 
+	--> Headless : 
 
+Node : Is a machine where our qactual workload runs.. i.e; ec2 instance, own server..
 
+Namespace : logical isolation os resources.. Set limits based on the NS.. 
 
+---
 
+DaemonSet : it will ensure a pod is runing on everynode we have in K8s cluster. 
+	--> Log Collector (dynatrace / fluentbit)
+	--> monitoring agents (Dyantrace / Prometheous nde exporter)
+	--> Network plugins (calico) Falco
 
+kubectl label node <node-name> dedicated=monitoring
 
+---
+
+StatefulSet : 
+--> A persistent Identity (web-01, web-02)
+--> Stable storage with EBS
+--> Created and terminated in Order wise.
+
+We need to enable EBS CSI Driver:
+
+1. Approve IAM OIDC Provider..
+
+cluster_name=ekswithavinash
+eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+
+2. IRSA (IAM Role for Service Acocunt)
+
+2.1 Create IAM Role for EBS CSI Driver..
+
+eksctl create iamserviceaccount --name ebs-csi-controller-sa --namespace kube-system --cluster ekswithavinash --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy --approve --role-only --role-name AmazonEKS_EBS_CSI_DriverRole
+
+2.2
+export SERVICE_ACCOUNT_ROLE_ARN=arn:aws:iam::828477980115:role/AmazonEKS_EBS_CSI_DriverRole
+
+2.3
+eksctl create addon --name aws-ebs-csi-driver --cluster ekswithavinash --service-account-role-arn arn:aws:iam::828477980115:role/AmazonEKS_EBS_CSI_DriverRole --force
+
+Headless Service : Its a spl kind of service without a ClusterIP. It doesnt load traffic, it directly exposes the pods behind it.
+
+names : web-0.nginx.default.svc.cluster.local
 
 
 
