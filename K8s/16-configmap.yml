@@ -1,0 +1,19 @@
+---
+# kubectl create configmap my-config-info --from-literal=GREETING="Hello from Avinash"
+# command: ["sh", "-c", "echo $GREETING"]
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-config-info
+spec:
+  containers:
+  - name: my-config-info
+    image: busybox
+    command: ["sh", "-c", "echo $GREETING"]
+    env:
+    - name: GREETING
+      valueFrom:
+        configMapKeyRef:
+          name: my-config-info
+          key: GREETING

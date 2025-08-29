@@ -302,16 +302,43 @@ Headless Service : Its a spl kind of service without a ClusterIP. It doesnt load
 
 names : web-0.nginx.default.svc.cluster.local
 
+---
+
+ConfigMaps : To store non-sensitive informaiton.. 
+
+Systems manager parameter store = K8s ConfigMaps = To store non-sensitive data
+Secrets Manager = K8s Secrets = To store sensitive data
+
+kubectl create configmap my-config-info --from-literal=GREETING="Hello from Avinash"
+
+---
+
+How exactly we have apt for ubuntu, dnf/yum for al2023/rhel.. K8s has helm charts.. 
+
+Helm chart : A collection of yaml files for K8s (Deployment, service, configmap...)
+Helm repository : A place to store helm charts.. 
+
+values file --> values.yml --> We can store all the configurable parameters.. 
 
 
+helm repo list			--> TO list the Installed repos
+helm repo update		--> To update the installed repos with latest charts.
 
+helm search repo <chart-name> 
 
+helm delete <name>		--> uninstall/delete the helm repo and app.
 
+helm uninstall <name>
 
+helm status my-node-app
 
+helm history my-node-app
 
+helm rollback my-node-app <2>
 
+helm package <chart-directory>
 
+---
 
 
 
