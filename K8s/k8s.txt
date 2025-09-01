@@ -103,7 +103,7 @@ Sometimes Pods lifetime is very short.. Depending on pods IP to communicate may 
 
 --> ClusterIP : 
 --> NodePort : 
---> LoadBalancer : 
+--> LoadBalancer : Classic Load Balancer
 
 
 ---
@@ -339,6 +339,85 @@ helm rollback my-node-app <2>
 helm package <chart-directory>
 
 ---
+
+HPA : Horizontal Pod Autoscaler : 
+
+Cluster Autoscaler : It also comes under horizontal scaling only..  
+
+
+kubectl apply -f php-apache.yml
+
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=6
+
+
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+
+kubectl get hpa
+kubectl describe hpa
+
+kubectl get pods -w (watch mode)
+
+kubectl delete hpa php-apache
+kubectl delete deployment php-apache
+kubectl delete service php-apache
+
+----
+
+helm repo add autoscaler https://kubernetes.github.io/autoscaler
+helm repo update
+
+helm install cluster-autoscaler autoscaler/cluster-autoscaler \
+  --namespace kube-system \
+  --set autoDiscovery.clusterName=ekswithavinash \
+  --set awsRegion=ap-south-1 \
+  --set extraArgs.balance-similar-node-groups=true \
+  --set extraArgs.skip-nodes-with-system-pods=false
+
+
+kubectl apply -f php-apache.yml
+
+kubectl scale deployment php-apache --replicas=50
+
+kubectl get pods -w
+
+---
+
+
+--> ClusterIP : 
+--> NodePort : 
+--> LoadBalancer : Classic Load Balancer : AWS Stopped support
+
+
+Ingress Controller : 
+
+Path Based Routing : domainname.com/notifications, domainname.com/taskservice
+IP/Host Based Based : IP
+Load Balancer : Distribute the incoming traffic across pods.
+With classic LB, We need to create a LB for every service.. With Ingress/ALB, No need to create multiple LBs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
