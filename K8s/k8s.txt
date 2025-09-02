@@ -396,12 +396,28 @@ Load Balancer : Distribute the incoming traffic across pods.
 With classic LB, We need to create a LB for every service.. With Ingress/ALB, No need to create multiple LBs.
 
 
+---
+
+Fargate : 
+
+eksctl create cluster --name ekswithavinash --region ap-south-1 --version 1.33 --fargate
+
+eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash --approve
+
+kubectl create ns nginx
+
+eksctl create fargateprofile --cluster ekswithavinash --name nginx-fg --namespace nginx
+
+---
+
+EKS Auto : 
 
 
+---
 
-
-
-
+K8s has deafult CLuster AutoScaler.. 
+--> Karpenter performs Pod Driven Scaling
+--> Direct Instance Provisioning
 
 
 
