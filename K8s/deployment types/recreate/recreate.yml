@@ -1,19 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cal-app-deployment
+  name: recreate-deploy
 spec:
   replicas: 2
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app: cal-app
+      app: myapp
   template:
     metadata:
       labels:
-        app: cal-app
+        app: myapp
     spec:
       containers:
-      - name: cal-app
-        image: thipparthiavinash/2048-game
+      - name: myapp
+        image: nginx:1.20
         ports:
         - containerPort: 80

@@ -419,11 +419,109 @@ K8s has deafult CLuster AutoScaler..
 --> Karpenter performs Pod Driven Scaling
 --> Direct Instance Provisioning
 
+---
+
+Deployment strategies:
+
+Recreate : Old ones will delete & new ones will create..
+	--> Downtime required
+	--> Simple and clean
+	
+Rolling Update : Its default starategy for our worklods.. 
+	--> Widely used one, as this doesnt required downtime.
+	--> Gradually replaces old pods with new pods.
+	
+Blue & Green Deployment: 
+	--> Bit consytly compared to other deployments
+	--> We need to maintain 2 verison of our applicaiton
+	--> Safer deployment approach
+	
+Canary Deployment : 
+	--> gradually sends the traffic to new verison (10%, 30%...)
+	--> test new verison with real users before full rollout.
 
 
+export SERVICE_ACCOUNT_ROLE_ARN=arn:aws:iam::828477980115:role/AmazonEKS_EBS_CSI_DriverRole
 
 
+---
 
+Small tool to help, K8s pricing/cost analysis.
+
+https://github.com/kubecost/kubecost
+
+---
+
+
+Install KOPS / kOps
+
+1. Install and configure "AWS CLI", "kubectl"
+2. Create an s3 bucket for KOPS State store, Export as env varibale.
+
+export KOPS_STATE_STORE=s3://aviz-k8-state
+
+verify the cluster status.. "kops get clusters"
+
+3. Create the cluster
+
+kops create cluster --name=demo.learnaws.today --state=$KOPS_STATE_STORE --zones=ap-south-1a,ap-south-1b --node-count=2 --node-size=t3.medium --control-plane-size=t3.medium --dns-zone=learnaws.today
+
+
+ * list clusters with: kops get cluster
+ * edit this cluster with: kops edit cluster demo.learnaws.today
+ * edit your node instance group: kops edit ig --name=demo.learnaws.today nodes-ap-south-1a
+ * edit your control-plane instance group: kops edit ig --name=demo.learnaws.today control-plane-ap-south-1a
+ 
+ 
+kops export kubecfg --name=demo.learnaws.today --admin
+
+kubectl config use-context demo.learnaws.today
+
+kops validate cluster --state=$KOPS_STATE_STORE --name=demo.learnaws.today
+
+kubectl cluster-info
+
+=====
+
+Create and access Dashboard
+
+====
+
+. Install the Dashboard
+Apply the recommended manifests:
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+
+This creates the Dashboard deployment in the kubernetes-dashboard namespace.
+
+2. Create an Admin User
+
+To log in, you need a ServiceAccount with cluster-admin rights.
+
+
+kubectl create serviceaccount admin-user -n kubernetes-dashboard
+
+kubectl create clusterrolebinding admin-user \
+  --clusterrole=cluster-admin \
+  --serviceaccount=kubernetes-dashboard:admin-user
+  
+3. Get the Login Token. Generate a token for the admin-user ServiceAccount:
+
+kubectl -n kubernetes-dashboard create token admin-user
+
+You’ll see a long JWT string — copy this, it will be used to log in.
+
+4. Access the Dashboard
+
+Secure Local Proxy (Recommended)
+
+kubectl proxy
+
+Now open this URL in your browser:
+
+👉 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+Paste the token from step 3 when prompted.
 
 
 
