@@ -144,6 +144,10 @@ You should have 2 components..
 
 eksctl create cluster --name=ekswithavinash --version 1.33 --region ap-south-1 --nodegroup-name ng-default --node-type t3.small --nodes 2 --managed --node-ami-family=AmazonLinux2023
 
+eksctl create cluster --name=ekswithavinash --version 1.33 --region ap-south-1 --nodegroup-name ng-default --node-type t3.small --nodes 2 --managed --node-ami-family=AmazonLinux2023
+
+
+
 ---
 
 OIDC : IAM OpenID Connect, This allows AWS IAM to authenticate with K8s service accounts and IAM Permissions and roles.
@@ -524,20 +528,29 @@ Now open this URL in your browser:
 Paste the token from step 3 when prompted.
 
 
+---
+
+
+kubectl label nodes ip-192-168-56-240.ap-south-1.compute.internal disktype=ssd
+
+eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash --approve
+
+
+--
+
+kubectl taint nodes ip-192-168-56-240.ap-south-1.compute.internal role=db:NoSchedule
+
+---
+
+Liveness Probe: “Are you alive? If not, restart.”
+Readiness Probe: “Are you ready to serve customers? If not, don’t send traffic.”
+Startup Probe: “Need extra wake-up time? I’ll wait.”
 
 
 
+kubectl drain ip-192-168-56-240.ap-south-1.compute.internal --ignore-daemonsets
 
 
-
-
-
-
-
-
-
-
-
-
+kubectl delete pods web-app-7d685947cd-78t7k web-app-7d685947cd-8fmfh web-app-7d685947cd-m5rpc web-app-7d685947cd-xft79
 
 
