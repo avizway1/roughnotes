@@ -1,0 +1,107 @@
+CI/CD Tool
+
+Continuous Integration (CI) and Continuous Delivery/Deployment (CD):
+
+
+Delivery : A manual Step/action included
+Deploy : No manaual step/action in the process
+
+Jenkins help us to Automate the "Testings", "Builds" and "Deployment process".
+
+2004 --> Kawaguchi developed hudson as a open-source tool for sun-microsystem.
+
+2010 --> dispite between Hudson and oracle (acquired sun-micro)... Foked the project and renamed as "jenkins"
+
+Jenkins community, Rich in plugin, good support
+
+https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html
+
+
+dnf install java-21-amazon-corretto -y
+
+dnf install jenkins -y
+
+systemctl start jenkins
+systemctl enable jenkins
+
+systemctl enable jenkins --now
+
+---
+
+Variables in Jenkins Projects/Pipelines/Items:
+
+Local varibales : Works with in a job/item.
+
+NAME=Avinash
+SUBJECT=Jenkins
+echo "Hello from $NAME, you are learning ${SUBJECT}"
+
+System level varibales : We can add varibales at system level and we can use at any job/item.
+
+ENV
+PROJECT
+SUBJECT
+
+
+echo "Hello, you are working on $ENV Environment, on $PROJECT subject to learn $SUBJECT"
+
+Hello, you are working on Production Environment, on Project-CICD subject to learn DevOps
+
+If we have "system vas" and Local Vars.. Local variables will have priority.
+
+---
+
+Jenkins Variables : 
+
+http://jenkins-svr-ip:8080/env-vars.html/
+
+
+echo "hello this job name is $JOB_NAME This job is running in $NODE_NAME, We are testing this on $JENKINS_URL and Build id is $BUILD_ID"
+
+hello this job name is jen-var-test This job is running in built-in, We are testing this on http://0.0.0.0:8080/ and Build id is 1
+
+
+---
+
+Build Options in Jenkins:
+
+Build Periodically : Configure a Cron and jenkins performs the build based on the schedule.
+
+Poll SCM : Same as build periodically only, but has intelligence.. It will prepare a build if any changes commited duting period.
+
+
+
+
+http://65.2.130.146:8080/github-webhook/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
