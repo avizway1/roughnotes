@@ -71,10 +71,163 @@ Poll SCM : Same as build periodically only, but has intelligence.. It will prepa
 
 
 
-
 http://65.2.130.146:8080/github-webhook/
 
+---
 
+Maven : 
+
+pom .xml pom.xml (Project Object Model)
+
+--> Manages the dependencies
+--> Standardise the build process
+--> We can use with CICD pipelines for build automation
+
+
+---
+JAR File (Java ARchieve) : 
+.class files
+--> Packaging a standalone java application, we can use this jar.
+
+java -jar /path-to-jar/sample.jar
+
+
+.
+├── pom.xml
+└── src
+    ├── main
+    │   └── java
+    │       └── mydemo
+    │           └── App.java
+    └── test
+        └── java
+            └── mydemo
+                └── AppTest.java
+
+7 directories, 3 files
+
+---
+
+
+.
+├── pom.xml
+├── src
+│   ├── main
+│   │   └── java
+│   │       └── mydemo
+│   │           └── App.java
+│   └── test
+│       └── java
+│           └── mydemo
+│               └── AppTest.java
+└── target
+    ├── classes
+    │   └── mydemo
+    │       └── App.class
+    ├── generated-sources
+    │   └── annotations
+    └── maven-status
+        └── maven-compiler-plugin
+            └── compile
+                └── default-compile
+                    ├── createdFiles.lst
+                    └── inputFiles.lst
+
+16 directories, 6 files
+
+---
+
+
+.
+├── pom.xml
+├── src
+│   ├── main
+│   │   └── java
+│   │       └── mydemo
+│   │           └── App.java
+│   └── test
+│       └── java
+│           └── mydemo
+│               └── AppTest.java
+└── target
+    ├── avinash-1.0-SNAPSHOT.jar
+    ├── classes
+    │   └── mydemo
+    │       └── App.class
+    ├── generated-sources
+    │   └── annotations
+    ├── generated-test-sources
+    │   └── test-annotations
+    ├── maven-archiver
+    │   └── pom.properties
+    ├── maven-status
+    │   └── maven-compiler-plugin
+    │       ├── compile
+    │       │   └── default-compile
+    │       │       ├── createdFiles.lst
+    │       │       └── inputFiles.lst
+    │       └── testCompile
+    │           └── default-testCompile
+    │               ├── createdFiles.lst
+    │               └── inputFiles.lst
+    ├── surefire-reports
+    │   ├── TEST-mydemo.AppTest.xml
+    │   └── mydemo.AppTest.txt
+    └── test-classes
+        └── mydemo
+            └── AppTest.class
+
+24 directories, 13 files
+
+
+
+---
+
+
+[INFO] Installing 
+/home/ec2-user/avinash/pom.xml to /root/.m2/repository/mydemoproj/avinash/1.0-SNAPSHOT/avinash-1.0-SNAPSHOT.pom
+
+[INFO] Installing /home/ec2-user/avinash/target/avinash-1.0-SNAPSHOT.jar to /root/.m2/repository/mydemoproj/avinash/1.0-SNAPSHOT/avinash-1.0
+
+
+---
+
+mvn clean
+
+
+---
+
+
+find / -name context.xml
+
+vim /opt/apache-tomcat-10.1.44/webapps/host-manager/META-INF/context.xml
+vim /opt/apache-tomcat-10.1.44/webapps/manager/META-INF/context.xml
+
+
+---
+
+
+vim /opt/apache-tomcat-10.1.44/conf/tomcat-users.xml
+
+tomcat
+s3cret
+
+
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<role rolename="admin-gui"/>
+<user username="tomcat" password="Avinash" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui"/>
+
+
+---
+
+Create a softlink with a string to perform easy start and stop operation..
+
+
+ln -s /opt/apache-tomcat-10.1.44/bin/startup.sh /usr/bin/tomcatstart
+ln -s /opt/apache-tomcat-10.1.44/bin/shutdown.sh /usr/bin/tomcatstop
 
 
 
