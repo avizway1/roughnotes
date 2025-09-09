@@ -1,0 +1,268 @@
+Hello World Pipeline
+---
+
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello, Jenkins Pipeline!'
+            }
+        }
+    }
+}
+
+---
+
+
+Multiple Stages Example
+
+---
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+    }
+}
+
+
+---
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                sh 'uname'
+            }
+        }
+    }
+}
+
+---
+
+use syntax generator to get the output:
+
+pipeline {
+    agent any
+
+    stages {
+        stage('stage-1') {
+            steps {
+                sh 'hostname'
+            }
+        }
+        stage('stage-2') {
+            steps {
+                git branch: 'main', url: 'https://github.com/avizway1/awar04-jenkins.git'
+            }
+        }
+    }
+}
+
+
+---
+
+
+# PASS --> Easy to Remember (pipeline --> agent --> stages --> steps)
+
+# pipeline {} → Starts the pipeline definition.
+# agent any → Run on any available Jenkins agent.
+# stages {} → Different steps of the pipeline.
+# echo → Prints text to the console log.
+
+
+---
+
+Pipeline as code:
+
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                sh 'uname'
+				echo "second step"
+				git branch: 'main', url: 'https://github.com/avizway1/awar04-jenkins.git'
+            }
+        }
+    }
+}
+
+---
+
+if you want to give multiple shell commands
+
+
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                sh '''
+				ls
+				lsblk
+				df -Th
+				hostname
+				'''
+            }
+        }
+    }
+}
+
+
+
+---
+
+Simple Scripted Pipeline
+
+Jenkins has two styles: Declarative (above) and Scripted (below).
+
+# node {} means run inside a Jenkins node.
+# Similar to declarative, but looks more like normal Groovy scripting.
+
+---
+
+node {
+    stage('Build') {
+        sh 'echo "hello from avinash"'
+    }
+}
+
+---
+
+node {
+    stage('Build') {
+        echo 'Building...'
+    }
+    stage('Test') {
+        echo 'Testing...'
+    }
+    stage('Deploy') {
+        echo 'Deploying...'
+    }
+}
+
+---
+
+Pipeline with Shell Commands
+
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+				deleteDir()
+                sh 'git clone https://github.com/avizway1/awar04-jenkins.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'echo "Compiling code..."'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+    }
+}
+
+
+---
+
+Pipeline with Post Actions
+
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo "Building project..."'
+                sh 'sleep 5'  // simulate build
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Running tests..."'
+                sh 'exit 1'   // force failure
+            }
+        }
+    }
+    post {
+        success {
+            echo '✅ Build succeeded!'
+        }
+        failure {
+            echo '❌ Build failed!'
+        }
+        always {
+            echo '📢 Pipeline finished (success or fail).'
+        }
+    }
+}
+
+
+---
+
+
+User input proceed options
+
+
+
+pipeline {
+    agent any
+    stages {
+        stage('Confirmation') {
+            steps {
+                script {
+                    input message: 'Do you want to continue?', ok: 'Yes'
+                }
+            }
+        }
+
+        stage('Next Step') {
+            steps {
+                echo "Pipeline continued after approval"
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

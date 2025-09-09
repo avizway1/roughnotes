@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenkins CI/CD Project by Avinash Reddy</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"> <!-- Optional favicon -->
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .starter-template {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+        .branding {
+            margin-top: 2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+
+<main role="main" class="container">
+    <div class="starter-template">
+        <img src="/images/jenkins-logo.png" alt="Jenkins Logo" style="height: 80px;" class="mb-3"> <!-- Optional logo -->
+        <h1 class="display-4">Jenkins CI/CD Project</h1>
+        <p class="lead">Powered by AWS | Brought to you by <strong>Avinash Reddy</strong></p>
+        <h2><span th:text="'Hello, ' + ${message}"></span></h2>
+    </div>
+
+    <div class="branding text-center">
+        <img src="/images/aws-logo.png" alt="AWS Logo" style="height: 60px;" class="mr-2">
+        <img src="/images/jenkins-logo.png" alt="Jenkins Logo" style="height: 60px;">
+    </div>
+</main>
+
+<footer>
+    <p>&copy; <span th:text="${#dates.format(new java.util.Date(), 'yyyy')}"></span> Avinash Reddy | Jenkins on AWS</p>
+</footer>
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

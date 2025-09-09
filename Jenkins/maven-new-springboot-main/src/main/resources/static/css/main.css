@@ -1,0 +1,57 @@
+/* Base Layout */
+body {
+  padding-top: 5rem;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Centered welcome message */
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+/* Headings */
+h1 {
+  color: #004085; /* Deep blue for clarity */
+  font-weight: bold;
+}
+
+h2 {
+  color: #d9534f; /* Bootstrap 'danger' red */
+}
+
+/* Paragraph text */
+p.lead {
+  color: #343a40;
+  font-size: 1.25rem;
+}
+
+/* Branding logos */
+.branding img {
+  margin: 0.5rem;
+  max-height: 60px;
+}
+
+/* Footer */
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .branding img {
+    max-height: 40px;
+  }
+}

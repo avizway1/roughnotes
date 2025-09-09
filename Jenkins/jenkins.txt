@@ -194,6 +194,10 @@ java -jar /path-to-jar/sample.jar
 
 mvn clean
 
+---
+
+mvn clean install package
+
 
 ---
 
@@ -230,11 +234,11 @@ ln -s /opt/apache-tomcat-10.1.44/bin/startup.sh /usr/bin/tomcatstart
 ln -s /opt/apache-tomcat-10.1.44/bin/shutdown.sh /usr/bin/tomcatstop
 
 
+---
 
 
 
-
-
+pipeline
 
 
 
