@@ -1,0 +1,68 @@
+SonarQube : open-source platform for inspecting and analyzes code quality..
+
+--> Easily integrate with CICD pipelines.. 
+
+--> Bug
+--> Vulnarability
+--> Code Smell
+
+
+Improve code quality : 
+Security Assurance : 
+Team Collaboration : 
+
+Code Reliability : Bugs, logiocal error, incorrect code, potential risks
+Code Security : XSS (Cross site scripting), SQL injection..
+Code Coverage & Duplication : identify the code duplication percentage across modules
+Metrics : Linues of.. commit rate.. Setup code standards..
+
+--
+
+Quality Gate : It acts as checkpoint (go or no go)..
+
+Pass / Gree : COde is healthy, we are matching the org standards...
+Fail / Red : Code has too many issues... shoultn't deployed..
+
+Code Coverage >= 80% or more   --> We can treat it as a good code and continue with the deployment
+Bugs or Vulnarability : 0
+Code Duplication : <= 3%
+
+-----
+
+Code Smell : Warning signal in the code.. 
+--> Any improvements required.. 
+--> Poor Naming standards.... Hardcoading sensitive values.. Too many parameters.. Duplicate code.. Lot of code commented out..
+
+
+Bug : issue, causes application broken..
+Vulnarability : Security issue
+Code smell : Bad Practices.. 
+
+
+
+Projects : An application / piece of application..
+issues : problems found in our code
+Rules : The things we want to "check" when code is scanned by SQ.
+Quality Polocies : Collection of Rules (Java / cloudformation..)
+Quality Gates : Pass/Fail call for code based on code coverage..
+
+---
+
+docker run -d --name sonarqube -p 9000:9000 sonarqube:9.9.8-community
+
+---
+
+
+squ_ee134abd7babe30b34ee7193d21434a8226770d8
+
+
+
+
+
+
+
+
+
+
+
+

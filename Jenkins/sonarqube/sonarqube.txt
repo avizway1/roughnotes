@@ -1,0 +1,222 @@
+
+
+## 🔹 Steps to Install SonarQube on Amazon Linux 2023
+
+### 1. Update System
+
+```bash
+sudo dnf update -y
+```
+
+---
+
+### 2. Install Java (JDK 17 or later – SonarQube 9.x/10.x needs Java 17)
+
+```bash
+sudo dnf install java-21-amazon-corretto -y
+```
+
+Verify:
+
+```bash
+java -version
+```
+
+---
+
+### 3. make sure to have Maven installed
+
+
+maven --version
+
+---
+
+sudo dnf update -y
+sudo dnf install -y docker
+sudo systemctl enable --now docker
+
+
+---
+
+docker run -d --name sonarqube -p 9000:9000 sonarqube:9.9.8-community
+
+open port 9000 at SG Level... 
+
+http://<ip>:9000
+
+---
+
+Now in Jenkins install below plugins
+
+SonarQube Scanner
+Sonar Quality Gates
+Eclipse Temurin installer
+
+---
+
+Then configure "maven", "git", "sonarqube" in Jenkins Server.. 
+
+under tools.. configure "sonar scanner", "maven" and "git"..
+
+Now under "system" configure "sonarqube server".. 
+Name: "MySonarQube"
+Server authentication token: 
+
+Generate a token.. choose a secret with "Secret test"
+
+squ_fa60fc60d424447ff208f312748b784da4202a91
+
+---
+
+
+pipeline {
+  agent any
+
+  tools {
+    maven 'maven'   // 👈 Jenkins tool name for Maven (configured in Global Tools)
+  }
+
+  environment {
+    SONAR_PROJECT_KEY = 'awar04-jenkins'
+    SONAR_HOST_URL    = 'http://localhost:9000'
+    SONAR_AUTH_TOKEN  = 'squ_fa60fc60d424447ff208f312748b784da4202a91'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git url: 'https://github.com/avizway1/awar04-jenkins.git', branch: 'main'
+      }
+    }
+
+    stage('Build & SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('MySonarQube') {
+          sh '''
+            mvn clean verify sonar:sonar \
+              -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+              -Dsonar.host.url=${SONAR_HOST_URL} \
+              -Dsonar.token=${SONAR_AUTH_TOKEN}
+          '''
+        }
+      }
+    }
+  }
+}
+
+
+----
+
+
+Now, Integrate with "Quality Gate"
+
+Create a webhook in the project first.. 
+
+In SonarQube UI → choose project, then Project settings → Webhooks**
+   - Add webhook URL:  
+     ```
+     http://13.233.136.90:8080/sonarqube-webhook/
+
+---
+
+
+pipeline {
+  agent any
+
+  tools {
+    maven 'maven'
+  }
+
+  environment {
+    SONAR_PROJECT_KEY = 'awar04-jenkins'
+    SONAR_HOST_URL    = 'http://localhost:9000'
+    SONAR_AUTH_TOKEN  = 'YOUR_SONAR_TOKEN'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git url: 'https://github.com/avizway1/awar04-jenkins.git', branch: 'main'
+      }
+    }
+
+    stage('Build & SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('MySonarQube') {
+          sh '''
+            mvn clean verify sonar:sonar               -Dsonar.projectKey=${SONAR_PROJECT_KEY}               -Dsonar.host.url=${SONAR_HOST_URL}               -Dsonar.token=${SONAR_AUTH_TOKEN}
+          '''
+        }
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 10, unit: 'MINUTES') {
+          script {
+            def qg = waitForQualityGate()
+            if (qg.status != 'OK') {
+              error "❌ Quality Gate failed: ${qg.status}"
+            } else {
+              echo "✅ Quality Gate passed!"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+---
+
+New repo with more errors... 
+
+pipeline {
+  agent any
+
+  tools {
+    maven 'maven'   // 👈 Jenkins tool name for Maven (configured in Global Tools)
+  }
+
+  environment {
+    SONAR_PROJECT_KEY = 'q-code'
+    SONAR_PROJECT_NAME = 'q-code'
+    SONAR_HOST_URL    = 'http://localhost:9000'
+    SONAR_AUTH_TOKEN  = 'squ_fa60fc60d424447ff208f312748b784da4202a91'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git url: 'https://github.com/avizway1/awar04-sonarqube.git', branch: 'main'
+      }
+    }
+
+    stage('Build & SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('MySonarQube') {
+          sh '''
+            mvn clean verify sonar:sonar \
+              -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+              -Dsonar.host.url=${SONAR_HOST_URL} \
+              -Dsonar.token=${SONAR_AUTH_TOKEN}
+          '''
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
