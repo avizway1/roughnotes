@@ -1,0 +1,121 @@
+pipeline {
+  agent any
+
+  tools {
+    maven 'maven'
+  }
+
+  environment {
+    // --- SonarQube ---
+    SONAR_SERVER_NAME = 'MySonarQube'
+    SONAR_PROJECT_KEY = 'github_avizway1_awar04_jenkins'
+    SONAR_PROJECT_NAME = 'Springdemo'
+    SONAR_HOST_URL    = 'http://localhost:9000'
+    SONAR_TOKEN       = 'squ_d1e47157a5c4d829b22b26442c9e3a7b01787439'
+
+    // --- Nexus ---
+    NEXUS_URL         = 'http://localhost:8081'
+    RELEASE_REPO_ID   = 'nexus-releases'
+    SNAPSHOT_REPO_ID  = 'nexus-snapshots'
+    MVN_SETTINGS_FILE = '.mvn-settings.xml'
+
+    // --- Tomcat ---
+    TOMCAT_BASE_URL   = 'http://172.31.32.201:8080'
+    TOMCAT_APP_PATH   = '/springdemo'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git url: 'https://github.com/avizway1/awar04-jenkins-end-to-end.git', branch: 'main'
+      }
+    }
+
+    stage('Build + SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv("${SONAR_SERVER_NAME}") {
+          sh '''
+            mvn -B -DskipTests=true clean verify sonar:sonar \
+              -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+              -Dsonar.projectName=${SONAR_PROJECT_NAME} \
+              -Dsonar.host.url=${SONAR_HOST_URL} \
+              -Dsonar.login=${SONAR_TOKEN}
+          '''
+        }
+      }
+    }
+
+    stage('Prepare Maven Settings for Nexus') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'nexus-creds',
+                                          usernameVariable: 'NEXUS_USER',
+                                          passwordVariable: 'NEXUS_PASS')]) {
+          sh '''
+cat > ${MVN_SETTINGS_FILE} <<EOF
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <servers>
+    <server>
+      <id>${RELEASE_REPO_ID}</id>
+      <username>${NEXUS_USER}</username>
+      <password>${NEXUS_PASS}</password>
+    </server>
+    <server>
+      <id>${SNAPSHOT_REPO_ID}</id>
+      <username>${NEXUS_USER}</username>
+      <password>${NEXUS_PASS}</password>
+    </server>
+  </servers>
+</settings>
+EOF
+          '''
+        }
+      }
+    }
+
+    stage('Deploy to Nexus') {
+      steps {
+        sh '''
+          mvn -B -DskipTests=true deploy -s ${MVN_SETTINGS_FILE}
+        '''
+      }
+    }
+
+    stage('Deploy to Tomcat') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'tomcat',
+                                          usernameVariable: 'TC_USER',
+                                          passwordVariable: 'TC_PASS')]) {
+          sh '''
+            WAR_FILE=$(ls target/*.war | head -n 1)
+            [ -z "$WAR_FILE" ] && { echo "No WAR found in target/"; exit 1; }
+
+            set -e
+            curl -sS -u "$TC_USER:$TC_PASS" --fail \
+              --upload-file "$WAR_FILE" \
+              "${TOMCAT_BASE_URL}/manager/text/deploy?path=${TOMCAT_APP_PATH}&update=true" || {
+
+              echo "Update failed; attempting fresh deploy…"
+              curl -sS -u "$TC_USER:$TC_PASS" --fail \
+                "${TOMCAT_BASE_URL}/manager/text/undeploy?path=${TOMCAT_APP_PATH}" || true
+
+              curl -sS -u "$TC_USER:$TC_PASS" --fail \
+                --upload-file "$WAR_FILE" \
+                "${TOMCAT_BASE_URL}/manager/text/deploy?path=${TOMCAT_APP_PATH}"
+            }
+
+            echo "Deployed ${WAR_FILE} to ${TOMCAT_BASE_URL}${TOMCAT_APP_PATH}"
+          '''
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      archiveArtifacts artifacts: 'target/**/*.war', allowEmptyArchive: true
+      sh 'rm -f ${MVN_SETTINGS_FILE} || true'
+    }
+  }
+}
