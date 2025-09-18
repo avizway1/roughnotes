@@ -1,0 +1,144 @@
+1. Create a VPC.. with 6 Subnets (4 Private and 2 public)
+
+192.168.0.0/23 - VPC CIDR
+
+192.168.0.0/26 - WEB-Public-SN-1A
+192.168.0.64/26 - WEB-Public-SN-1B
+192.168.0.128/26 - APP-Pvt-1A
+192.168.0.192/26 - APP-Pvt-1B
+192.168.1.0/26 - DB-Pvt-1A
+192.168.1.64/26 - DB-Pvt-1B
+
+
+--
+
+2. Create Security groups for our resources.
+
+JUMP EC2 : Port 22 --> My Network
+Web EC2  : port: 80 & 443 --> ELB SG, 22 --> JUMP-SG
+ELB : Port 80, 443 --> For Everyone
+EFS : Port NFS : 2049 --> Web-Sg
+RDS : Port 3306 --> Web-Sg
+
+--
+
+3. Create a Db Subnet Group with DB Subnets created in VPC.. Launch mysql DB 
+(Enable backups, enable multi-AZ for critical workloads)
+
+RDS:
+hostname : capstone-db.cjmu48ickkmj.ap-south-1.rds.amazonaws.com / rds.learnaws.today
+username: dbadmin
+Password: Avinash12345
+
+---
+
+4. Create an EFS and make sure it is avaialble to APP Servers.
+
+---
+
+5. Launch a Jump Server in Web-Public-SN and Launch an APP Server in App-Pvt-subnet.. 
+
+Via Jump Server, Connect to the APP SN Instance.. 
+
+---
+
+6. Install httpd, php and Mount "EFS" to web document root path (/var/www/html/)
+
+dnf install httpd -y
+dnf install php php-mysqlnd -y
+dnf install mariadb105 -y
+
+
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-05acf197004820dc5.efs.ap-south-1.amazonaws.com:/ /var/www/html/
+
+make it as perm mount.. get entry from /etc/mtab and write it to /etc/fstab
+
+---
+
+capstone-alb-1293062035.ap-south-1.elb.amazonaws.com/info.php
+
+Edit /etc/httpd/conf/httpd.conf and add below entry for http to https redirection
+
+
+<VirtualHost *:80>
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} =http
+RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
+</VirtualHost>
+
+Create an "info.php" file in /var/www/html/ path.. 
+
+add below content to the file
+
+<?php phpinfo(); ?>
+
+---
+
+7. Create a load balancer in Public SUbnets, Add "app server" to the LB's target group and test the output once the load balance is in active state. 
+
+<lb-dns-name>/info.php			--> This should load php info
+
+---
+
+8. Connect to the RDS Instance from the APP Server..
+
+mysql -h <rds-ep> -u <username> -P 3306 -p 
+
+Then, Execute the SQL scripts for DB creation, Table creation for user info, user course progress, user session...
+
+---
+
+9. Ceate an S3 bucket, Upload sample video files into the s3 bucket.. Create a Cloudfront distribution to deliver the video files to outside world using Cloudfront distribution...
+
+---
+
+10. Update below files with our resource information..
+
+	config.php
+	video1.html and video2.html
+
+---
+
+11. Now place all the web content into an s3 bucket, then copy it to "app server"... 
+
+
+---
+
+12. Map your load balancer to ROute53 Domain name.. and test it...
+
+Restart the instance and verify the service startup status, db connection status... 
+
+---
+
+13. Stop the ec2 instance and Create a GoldenAMI.. Once GoldenAMi is ready, Create a "launch Template"
+
+---
+
+14. Create an ASG with GoldenAMI, Launch template, Load Balancer.. Then verify the output
+
+---
+
+15. Crete a reepository in Github, clone it to your local environment.. then place your webcontent, and push it to the repo..
+
+---
+
+16. Create a Code Pipeline, then use the gitrepo, to automatically deploy the content to the webservers, whenever any push event occured at github.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
