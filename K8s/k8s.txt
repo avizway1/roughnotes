@@ -587,14 +587,38 @@ Prometheus = collect the metrics..
 grafana = gives visualisation/dashboard to the metrics..
 
 
+=========
+
+Task Management Deployment : 
+
+curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.11.0/docs/install/iam_policy.json
+
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam_policy.json
+	
+	
+eksctl create iamserviceaccount \
+    --cluster=ekswithavinash \
+    --namespace=kube-system \
+    --name=aws-load-balancer-controller \
+    --attach-policy-arn=arn:aws:iam::982424467695:policy/AWSLoadBalancerControllerIAMPolicy \
+    --override-existing-serviceaccounts \
+    --region ap-south-1 \
+    --approve
 
 
+helm repo add eks https://aws.github.io/eks-charts
+helm repo update eks
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=ekswithavinash \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller
 
 
-
-
-
-
+kubectl get deployment -n kube-system aws-load-balancer-controller
 
 
 
