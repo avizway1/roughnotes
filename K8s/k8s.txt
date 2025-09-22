@@ -144,7 +144,7 @@ You should have 2 components..
 
 eksctl create cluster --name=ekswithavinash --version 1.33 --region ap-south-1 --nodegroup-name ng-default --node-type t3.small --nodes 2 --managed --node-ami-family=AmazonLinux2023
 
-eksctl create cluster --name=ekswithavinash --version 1.33 --region ap-south-1 --nodegroup-name ng-default --node-type t3.small --nodes 4 --managed --node-ami-family=AmazonLinux2023
+eksctl create cluster --name=ekswithavinash --version 1.33 --region ap-south-1 --nodegroup-name ng-default --node-type c7i-flex.large --nodes 2 --managed --node-ami-family=AmazonLinux2023
 
 ---
 

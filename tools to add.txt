@@ -1,0 +1,82 @@
+
+1. Based on you resume --> Confident.. 
+2. Based on org requirement --> K8s.. --> ec2/lambda
+
+
+--> ec2, s3, efs, route53, vpc, rds, cloudwatch, cloudtrail, code pipeline (previous) / Jenkins (current)
+
+BMW : 
+Launch instance, configure s3, create jenkins pipelines, K8s, deploy workloads, Integrate with tools.. 
+Walmart : Launch instance, configure s3, create jenkins pipelines, K8s, deploy workloads, Integrate with tools.. 
+
+--> BFS (Banking and Financial Services) Application for XYZ Country : We are using resources.. iam, s3, ec2, elb, efs, route53, rds, vpc with private subnets, endpoints, codepipeline/jenkins, sonarqube, nexus artifacts... 
+
+ECS/EKS.. this ArgoCD, Git along with codepipeline..
+
+iam
+s3
+ec2
+efs
+elb,
+route53
+rds
+redshift
+vpc
+vpc endpoints
+vpc peering
+vpc transit gateway
+cloudwatch
+cloudtrail
+secrets manager
+ssm parameter store
+github
+docker
+ecs
+ecr
+eks
+argocd
+nexus
+sonarqube
+maven
+jenkins
+github actions
+shell
+
+Maintenance window: Over weekeneds and non-business hours.. Critical issue: E-CRQ (emergency change request)..
+CRQ/CAB/PIR/RCA: 
+
+--> Every Month, We have a "GreenZone".. We do most of the deployment kind of activities during this greenzone window. (Every month 3rd saturday)..
+
+Ticket will allocate: ServiceNow/Snow.. Cherwell.. Ivanti.. : We have an internal ticketing tool.. 
+
+Project Manager (PM)
+Dev --> QA (tetsing) --> UAT (Pre-prod) --> Prod (Live)
+
+Project Manager is responsible for CRQ creation and Adding tasks for respective teams.. 
+Deployment team shares the Deployment instructions to Operations team.. (s3 --> Update the Lmabda) (Pick file from storage --> Artifactory --> Deploy to server --> jenkins/Gh/Codepipeline)/ manual
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
