@@ -1,0 +1,30 @@
+Parameters:
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    Description: Choose the type of EC2 instance type you want to launch.
+    AllowedValues:
+      - t2.micro
+      - t2.small
+
+  AvailabilityZone:
+    Type: String
+    Default: ap-south-1a
+    Description: Choose the availability zone where you want to launch the EC2 instance.
+    AllowedValues:
+      - ap-south-1a
+      - ap-south-1b
+      
+Resources:
+  MyProdEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0d0ad8bb301edb745
+      AvailabilityZone: ap-south-1a
+      KeyName: awar-04
+      InstanceType: t2.micro
+
+Outputs:
+  EC2InstanceId:
+    Description: The ID of the EC2 instance created.
+    Value: !Ref MyProdEC2Instance

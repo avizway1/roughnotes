@@ -1,0 +1,99 @@
+#Simple YAMl file for fruits
+fruit: apple
+color: red
+origin: simla
+
+---
+#List format
+
+fruits:
+  - apple
+  - banana
+  - cherry
+  - mango
+
+---
+#flowstyle
+
+fruits: [apple, banana, cherry, mango]
+
+---
+
+#Data Types in YAML
+fruit: apple #string
+prce: 20 #number
+is_available: true #boolean
+
+---
+
+#Collections
+
+fruits:
+  - apple
+  - banana
+  - cherry
+  - mango
+apple:
+  color: red
+  price: 20
+  is_available: true
+
+# Nested details for multiple fruits
+
+fruits_details:
+  apple:
+    color: red
+    price: 20
+    is_available: true
+  banana:
+    color: yellow
+    price: 15
+    is_available: true
+fruits_colors: {apple: red, banana: yellow, cherry: dark_red,mango: yellow_orange}
+
+---
+shop-name: AWS Fruit shop
+location: hyderabad
+fruits:
+  - name: apple
+    color: red
+    price: 20
+    is_available: true
+  - name: banana
+    color: yellow
+    price: 15
+    is_available: true
+  - name: cherry
+    color: dark_red
+    price: 25
+    is_available: false
+  - name: mango
+    color: yellow_orange
+    price: 30
+    is_available: true
+is_available:
+  apple: true
+  banana: true
+  cherry: false
+  mango: true
+discount:
+  weekday: 20
+  weekend: 10
+
+---
+
+#Reference Mechanism in YAML
+fruits:
+  bestfruit: apple
+  sweetfruit: banana
+  healthyfruit: mango
+
+AvinashFruitbasket:
+  FirstChoise: !Ref sweetfruit
+  SecondChoice: !Ref bestfruit
+  ThirdChoice: !Ref healthyfruit
+
+AnudeepFruitbasket:
+  FirstChoise: !Ref bestfruit
+  SecondChoice: !Ref healthyfruit
+  ThirdChoice: !Ref sweetfruit

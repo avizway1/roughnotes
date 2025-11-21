@@ -1,0 +1,38 @@
+Parameters:
+
+  Environment:
+    Type: String
+    Default: dev
+    Description: Choose the environment for the EC2 instance.
+    AllowedValues:
+      - dev
+      - uat
+
+  AvailabilityZone:
+    Type: String
+    Default: ap-south-1a
+    Description: Choose the availability zone where you want to launch the EC2 instance.
+    AllowedValues:
+      - ap-south-1a
+      - ap-south-1b
+      
+Resources:
+  MyProdEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0d0ad8bb301edb745
+      AvailabilityZone: ap-south-1a
+      KeyName: awar-04
+      InstanceType: !FindInMap [ EnvToInstanceType, !Ref Environment, InstanceType ]
+
+Outputs:
+  EC2InstanceId:
+    Description: The ID of the EC2 instance created.
+    Value: !Ref MyProdEC2Instance
+
+Mappings:
+  EnvToInstanceType:
+    dev:
+      InstanceType: t2.micro
+    uat:
+      InstanceType: t2.small

@@ -1,0 +1,36 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Demonstrate DependsOn - S3 bucket is created only after EC2 instance is created.
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0d0ad8bb301edb745
+      InstanceType: t2.micro
+      KeyName: awar-04
+      AvailabilityZone: ap-south-1a
+
+  MyWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  MyWaitCondition:
+    Type: AWS::CloudFormation::WaitCondition
+    DependsOn: MyEC2Instance
+    Properties:
+      Handle: !Ref MyWaitHandle
+      Timeout: 60
+
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    DependsOn: MyWaitCondition
+    Properties:
+      BucketName: avinash-2507.depends-demo-bucket
+
+Outputs:
+  EC2InstanceId:
+    Description: The ID of the EC2 instance created.
+    Value: !Ref MyEC2Instance
+  S3BucketName:
+    Description: The name of the S3 bucket created after EC2 instance.
+    Value: !Ref MyS3Bucket

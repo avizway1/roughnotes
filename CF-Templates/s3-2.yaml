@@ -1,0 +1,5 @@
+Resources:
+  MyProdS3bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: avinash.25072025

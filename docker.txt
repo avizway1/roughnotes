@@ -8,7 +8,6 @@ evrything i.e; app: code, tools, settings, dependencies... : you can run it in y
 ---
 
 
-
 dnf install docker -y
 systemctl start docker
 systemctl enable docker

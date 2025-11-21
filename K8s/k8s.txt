@@ -410,6 +410,7 @@ kubectl create ns nginx
 
 eksctl create fargateprofile --cluster ekswithavinash --name nginx-fg --namespace nginx
 
+
 ---
 
 EKS Auto : 

@@ -1,0 +1,3 @@
+Resources:
+  MyProdS3bucket:
+    Type: AWS::S3::Bucket

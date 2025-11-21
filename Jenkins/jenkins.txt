@@ -36,7 +36,11 @@ NAME=Avinash
 SUBJECT=Jenkins
 echo "Hello from $NAME, you are learning ${SUBJECT}"
 
+---
+
 System level varibales : We can add varibales at system level and we can use at any job/item.
+
+system --> setting --> Env variables
 
 ENV
 PROJECT
@@ -70,8 +74,68 @@ Build Periodically : Configure a Cron and jenkins performs the build based on th
 Poll SCM : Same as build periodically only, but has intelligence.. It will prepare a build if any changes commited duting period.
 
 
-
 http://65.2.130.146:8080/github-webhook/
+
+---
+
+Build throttle : COnfigure buiil throttle to control
+
+Then, offload the work to newly launched ec2 instance..
+
+1. Create a directory in new Node (under "var" directory) and add permisisons (chmod 777 remotedir) use at "remote roor directory".. 
+
+2. Install "java" and "git" in node..
+
+3. while adding a new node.. Add label "dev-node" "uat-name".. usage "build that match label expression".. 
+launch via ssh --> add cred --> SSH --> GLobal --> "ec2-user" and Privatekey and add keyapir
+Not verifying host strategy..
+
+4. Now try to create or trigger an existing job and verify where its running..
+
+5. Create a new item and choode "restrict where this can run" add dev-label and test it.. 
+
+----
+
+UserManagement in Jenkins : 
+
+
+Create a user and verify the user settings.. He can do anything..
+--> Reason : under security.. "logged in user can do anything "".. 
+test "allow anonomus access"..
+test "keep me signedin".. "register"..
+
+matrix:
+Tryout.. Matrix based security.. whatever user we are adding, he should have overall read permissions""
+add user "xyz" -->  
+add user "anudeep" (should already created) --> dont give delete on joba, but give all other permisisons..
+
+
+Now, create 4 projects i.e; dev-proj1 dev-proj2, uat-proj1 and uat-proj2.. we cant achieve this using "matrix"
+
+anudeep --> devprojects
+aravind --> uatprojects
+
+to chieve this, install plugins "Role base wuthrorisation starategy"
+
+now, navigate to security.. enable "role based auth strategy"..  then we get new option under security "manage and assign role"
+
+now, create a "overall read role".. without it we cant do anything.. 
+under "manage roles" --> "read-mandatory" --> choose "overall read"
+
+naviagte to "assign roles".. "global roles"  --> add user "anudeep" --> assign "read mandatory"
+and add "aravind" user and --> assign "read mandatory"
+
+login as these users and verify nothing available.. 
+
+Now.. GO to "manage roles" --> "item roles" -->  role to add "dev-role" --> pattern "dev.*" --> then choose the permisisons.. 
+GO to "manage roles" --> "item roles" -->  role to add "uat-role" --> pattern "dev.*" --> then choose the permisisons.. 
+
+Now, navigate to "assign roles".. add user .. then user "item role" assign users with appropriate .. and test.. 
+
+---
+
+--> To change look and feel, tryout the plugins.. 
+
 
 ---
 

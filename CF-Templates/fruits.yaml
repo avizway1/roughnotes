@@ -1,0 +1,185 @@
+#Simple YAMl file for fruits
+```yaml
+# Example 1: Simple mapping — single fruit record
+# Simple YAML file for fruits
+fruit: apple
+color: red
+origin: simla
+
+---
+# Example 2: Sequence (list) — basic list of fruit names
+# List format
+fruits:
+  - apple
+  - banana
+  - cherry
+  - mango
+
+---
+# Example 3: Flow-style sequence — compact inline list
+# flowstyle
+fruits: [apple, banana, cherry, mango]
+
+---
+# Example 4: Scalars and data types — string, number, boolean
+# Data Types in YAML
+fruit: apple # string
+price: 20 # number (fixed a typo 'prce' -> 'price')
+is_available: true # boolean
+
+---
+# Example 5: Collections — sequences and mappings, and nested mappings
+# Collections
+fruits:
+  - apple
+  - banana
+  - cherry
+  - mango
+apple:
+  color: red
+  price: 20
+  is_available: true
+
+# Nested details for multiple fruits
+fruits_details:
+  apple:
+    color: red
+    price: 20
+    is_available: true
+  banana:
+    color: yellow
+    price: 15
+    is_available: true
+fruits_colors: {apple: red, banana: yellow, cherry: dark_red, mango: yellow_orange}
+
+---
+# Example 6: Shop inventory — list of product mappings, availability, and discounts
+# Shop inventory example
+shop-name: AWS Fruit shop
+location: hyderabad
+fruits:
+  - name: apple
+    color: red
+    price: 20
+    is_available: true
+  - name: banana
+    color: yellow
+    price: 15
+    is_available: true
+  - name: cherry
+    color: dark_red
+    price: 25
+    is_available: false
+  - name: mango
+    color: yellow_orange
+    price: 30
+    is_available: true
+is_available:
+  apple: true
+  banana: true
+  cherry: false
+  mango: true
+discount:
+  weekday: 20
+  weekend: 10
+
+---
+# Example 7: Reference mechanism (CloudFormation-style) — placeholders using !Ref
+# Reference Mechanism in YAML (example of referencing keys; note: !Ref is a CloudFormation tag)
+fruits:
+  bestfruit: apple
+  sweetfruit: banana
+  healthyfruit: mango
+
+AvinashFruitbasket:
+  FirstChoise: !Ref sweetfruit
+  SecondChoice: !Ref bestfruit
+  ThirdChoice: !Ref healthyfruit
+
+AnudeepFruitbasket:
+  FirstChoise: !Ref bestfruit
+  SecondChoice: !Ref healthyfruit
+  ThirdChoice: !Ref sweetfruit
+
+---
+# Example 8: Grocery inventory — real-world inventory with SKUs, stock and suppliers
+grocery_inventory:
+  store: "Hyderabad Central"
+  last_updated: 2025-10-11
+  items:
+    - sku: FRU-001
+      name: apple
+      category: fruit
+      unit: kg
+      stock_count: 120
+      restock_threshold: 30
+      price_per_unit: 20
+      suppliers:
+        - name: "FreshFarms"
+          contact: "+91-9876543210"
+    - sku: FRU-002
+      name: banana
+      category: fruit
+      unit: dozen
+      stock_count: 60
+      restock_threshold: 20
+      price_per_unit: 15
+      suppliers:
+        - name: "TropicalSupplies"
+          contact: "+91-9123456780"
+
+---
+# Example 9: Purchase order — order with customer, items, totals and status
+purchase_order:
+  order_id: PO-20251011-0001
+  date: 2025-10-11
+  customer:
+    name: "Ramesh Kumar"
+    address: "Flat 12, Green Apartments, Hyderabad"
+    phone: "+91-9988776655"
+  items:
+    - sku: FRU-001
+      name: apple
+      quantity: 2
+      unit: kg
+      unit_price: 20
+    - sku: FRU-004
+      name: mango
+      quantity: 1
+      unit: piece
+      unit_price: 30
+  subtotal: 70
+  tax_percent: 5
+  tax_amount: 3.5
+  total: 73.5
+  payment:
+    method: "UPI"
+    status: "paid"
+
+---
+# Example 10: Recipe — ingredients, steps and nutrition (useful for cookbooks or meal planners)
+recipe:
+  name: "Fruit Salad"
+  servings: 4
+  ingredients:
+    - name: apple
+      qty: 2
+      unit: "pieces"
+    - name: banana
+      qty: 2
+      unit: "pieces"
+    - name: mango
+      qty: 1
+      unit: "large"
+    - name: honey
+      qty: 2
+      unit: "tbsp"
+  steps:
+    - "Wash and chop all fruits into bite-sized pieces."
+    - "Mix fruits in a bowl, drizzle honey and toss gently."
+    - "Chill for 15 minutes and serve."
+  nutrition:
+    calories_per_serving: 150
+    protein_g: 2
+    carbs_g: 35
+    fat_g: 1
